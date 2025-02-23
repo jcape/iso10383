@@ -6,6 +6,7 @@
     "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
     "EDITOR": "code --reuse-window --wait"
   },
+  "containerUser": "vscode",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -33,6 +34,14 @@
         }
       }
     }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git-lfs:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/devcontainers-extra/features/starship:1": {},
+    "ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {}
   },
   "image": "mcr.microsoft.com/devcontainers/rust:latest",
   "mounts": [

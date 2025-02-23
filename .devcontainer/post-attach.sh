@@ -1,5 +1,7 @@
 #!/bin/bash
 
-pushd /workspaces/rexegy >/dev/null
+npm install -g @withgraphite/graphite-cli@stable
+
+pushd /workspaces/iso10383 >/dev/null
 pre-commit install >/dev/null
 popd >/dev/null
