@@ -1,0 +1,54 @@
+{
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "containerEnv": {
+    "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
+    "EDITOR": "code --reuse-window --wait"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "barbosshack.crates-io",
+        "flydreame.docblocker",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "graphite.gti-vscode",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.makefile-tools",
+        "panicbit.cargo",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "vadimcn.vscode-lldb"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
+        "[rust]": {
+          "editor.wordWrapColumn": 100,
+          "editor.rulers": [
+            100
+          ]
+        }
+      }
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/rust:latest",
+  "mounts": [
+    "source=/usr/local/exegy,target=/usr/local/exegy,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config,target=/home/vscode/.config,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/dotfiles,target=/home/vscode/dotfiles,type=bind,consistency=cached"
+  ],
+  "name": "iso10383",
+  "privileged": true,
+  "runArgs": [
+    "--userns=keep-id"
+  ],
+  "postAttachCommand": "/workspaces/iso10383/.devcontainer/post-attach.sh",
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
+  "updateRemoteUserUID": true,
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/iso10383,type=bind,consistency=cached"
+}
