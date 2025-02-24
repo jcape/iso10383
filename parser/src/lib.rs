@@ -2,7 +2,6 @@
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use url::Url;
 
 pub const XML_SOURCE_URL: &str =
     "https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.xml";
@@ -10,14 +9,15 @@ pub const XML_SOURCE_URL: &str =
 /// The type of MIC
 #[derive(Copy, Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub enum Kind {
-    /// An operating MIC indicates a top-level organization
+    /// A top-level owner/operator organization
     #[serde(rename = "OPRT")]
     Operating,
-    /// A segment MIC indicates a listing or trading segment under an operating MIC
+    /// A market segment MIC subsidiary of an owner/operator MIC
     #[serde(rename = "SGMT")]
     Segment,
 }
 
+/// The market category of a MIC
 #[derive(Copy, Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub enum Category {
     #[serde(rename = "ATSS")]
@@ -69,10 +69,14 @@ pub enum Category {
     TradeReportingFacility,
 }
 
+/// The status of a MIC
 #[derive(Copy, Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub enum Status {
+    #[serde(rename = "ACTIVE")]
     Active,
+    #[serde(rename = "UPDATED")]
     Updated,
+    #[serde(rename = "EXPIRED")]
     Expired,
 }
 
@@ -107,7 +111,7 @@ pub struct Mic {
 
     /// Known acronym of the market
     #[serde(rename = "ACRONYM")]
-    acronym: String,
+    acronym: Option<String>,
 
     /// ISO 3166-2 alpha-2 code
     #[serde(rename = "ISO_x0020_COUNTRY_x0020_CODE_x0020__x0028_ISO_x0020_3166_x0029_")]
@@ -126,17 +130,24 @@ pub struct Mic {
     status: Status,
 
     /// The date this code was originally created
+    #[serde(rename = "CREATION_x0020_DATE")]
     creation_date: String,
 
     /// The last update date
+    #[serde(rename = "LAST_x0020_UPDATE_x0020_DATE")]
     last_update_date: String,
 
     /// The date this MIC was last verified for correctness
+    #[serde(rename = "LAST_x0020_VALIDATION_x0020_DATE")]
     last_validation_date: String,
 
     /// The date when this MIC was marked inactive
+    #[serde(rename = "EXPIRY_x0020_DATE")]
     expiry_date: Option<String>,
-    comments: String,
+
+    /// Additional details or comments.
+    #[serde(rename = "COMMENTS")]
+    comments: Option<String>,
 }
 
 pub struct MicLookup {
