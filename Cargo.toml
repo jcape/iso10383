@@ -1,6 +1,13 @@
-[package]
-name = "iso10383"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
+members = ["parser"]
 
-[dependencies]
+[workspace.package]
+authors = ["James Cape <jamescape777@gmail.com>"]
+edition = "2021"
+homepage = "https://github.com/jcape/iso10383"
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/jcape/iso10383"
+rust-version = "1.85.0"
+version = "0.1.0"

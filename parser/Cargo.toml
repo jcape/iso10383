@@ -1,0 +1,12 @@
+[package]
+name = "iso10383-parser"
+version.workspace = true
+authors.workspace = true
+description = "Parser for ISO 10383 CSV data"
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
