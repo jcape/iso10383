@@ -9,4 +9,10 @@ readme.workspace = true
 repository.workspace = true
 rust-version.workspace = true
 
+[features]
+default = ["std"]
+std = ["serde/std"]
+
 [dependencies]
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+url = "2.5.4"
