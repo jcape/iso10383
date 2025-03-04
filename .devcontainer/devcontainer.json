@@ -4,7 +4,9 @@
   ],
   "containerEnv": {
     "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
-    "EDITOR": "code --reuse-window --wait"
+    "EDITOR": "code --reuse-window --wait",
+    "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
+    "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit"
   },
   "containerUser": "vscode",
   "customizations": {
@@ -45,7 +47,7 @@
     },
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
     "ghcr.io/devcontainers-extra/features/starship:1": {},
-    "ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {}
+    "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {}
   },
   "mounts": [
     "source=${localEnv:HOME}/.config,target=/home/vscode/.config,type=bind,consistency=cached",
@@ -53,10 +55,11 @@
   ],
   "name": "iso10383",
   "privileged": true,
-  "runArgs": [
-    "--userns=keep-id"
-  ],
   "postAttachCommand": "/workspaces/iso10383/.devcontainer/post-attach.sh",
+  "remoteEnv": {
+    "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
+    "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit"
+  },
   "securityOpt": [
     "seccomp=unconfined"
   ],
