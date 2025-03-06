@@ -100,7 +100,7 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
       - uses: r7kamura/rust-problem-matchers@v1
-      - run: cargo +${{ matrix.rust }} doc --release --no-deps --features sim
+      - run: cargo +${{ matrix.rust }} doc --release --no-deps
 
   test-coverage:
     runs-on: ubuntu-22.04
