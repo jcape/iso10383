@@ -1,5 +1,11 @@
 //! ISO 10383 Market Identifier Codes
 
+use std::{
+    cell::RefCell,
+    collections::HashMap,
+    sync::atomic::{AtomicBool, Ordering},
+};
+
 use serde::{Deserialize, Serialize};
 
 /// The type of MIC
@@ -76,6 +82,38 @@ pub enum Status {
     Expired,
 }
 
+#[derive(Debug, Default, Deserialize, Serialize)]
+pub struct MicList {
+    #[serde(alias = "ISO10383_MIC")]
+    mics: Vec<Mic>,
+    #[serde(skip)]
+    by_mics: RefCell<HashMap<String, Mic>>,
+    #[serde(skip)]
+    by_mics_loaded: AtomicBool,
+}
+
+impl MicList {
+    fn update_cache(&self) {
+        if self.by_mics_loaded.load(Ordering::Acquire) {
+            return;
+        }
+
+        for mic in &self.mics {
+            self.by_mics
+                .borrow_mut()
+                .insert(mic.mic.clone(), mic.clone());
+        }
+        self.by_mics_loaded.store(true, Ordering::Release);
+    }
+
+    /// Retrieve the size of the cache
+    pub fn len(&self) -> usize {
+        self.update_cache();
+
+        self.mics.len()
+    }
+}
+
 #[derive(Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct Mic {
     /// The MIC itself
@@ -96,11 +134,11 @@ pub struct Mic {
 
     /// The name of the legal entity responsible for this MIC
     #[serde(alias = "LEGAL_x0020_ENTITY_x0020_NAME")]
-    legal_entity_name: String,
+    legal_entity_name: Option<String>,
 
     /// The ISO 17442 LEI code for the legal entity.
     #[serde(alias = "LEI")]
-    legal_entity_id: String,
+    legal_entity_id: Option<String>,
 
     #[serde(alias = "MARKET_x0020_CATEGORY_x0020_CODE")]
     category: Category,
@@ -111,7 +149,7 @@ pub struct Mic {
 
     /// ISO 3166-2 alpha-2 code
     #[serde(alias = "ISO_x0020_COUNTRY_x0020_CODE_x0020__x0028_ISO_x0020_3166_x0029_")]
-    country: [char; 2],
+    country: String,
 
     /// The city where this market is located
     #[serde(alias = "CITY")]
@@ -119,7 +157,7 @@ pub struct Mic {
 
     /// The website of this market
     #[serde(alias = "WEBSITE")]
-    website: String,
+    website: Option<String>,
 
     /// The current status of this code
     #[serde(alias = "STATUS")]
@@ -135,7 +173,7 @@ pub struct Mic {
 
     /// The date this MIC was last verified for correctness
     #[serde(alias = "LAST_x0020_VALIDATION_x0020_DATE")]
-    last_validation_date: String,
+    last_validation_date: Option<String>,
 
     /// The date when this MIC was marked inactive
     #[serde(alias = "EXPIRY_x0020_DATE")]

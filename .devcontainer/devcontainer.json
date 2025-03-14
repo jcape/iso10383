@@ -13,6 +13,7 @@
     "vscode": {
       "extensions": [
         "barbosshack.crates-io",
+        "dotjoshjohnson.xml",
         "flydreame.docblocker",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
