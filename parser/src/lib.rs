@@ -106,14 +106,22 @@ impl MicList {
         self.by_mics_loaded.store(true, Ordering::Release);
     }
 
-    /// Retrieve the size of the cache
+    /// Get the size of the cache
     pub fn len(&self) -> usize {
         self.update_cache();
 
         self.mics.len()
     }
+
+    /// Get whether or not the cache is empty.
+    pub fn is_empty(&self) -> bool {
+        self.update_cache();
+
+        self.mics.is_empty()
+    }
 }
 
+/// A structure representing a Market Identifier record.
 #[derive(Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct Mic {
     /// The MIC itself
