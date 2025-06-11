@@ -10,7 +10,8 @@ const TESTS_DIR: &str = "tests";
 #[yare::parameterized(
     feb2025 = {"2025-02-10.xml", 2733},
     mar2025 = {"2025-03-10.xml", 2745},
-    may2025 = {"2025-05-12.xml", 2767}
+    may2025 = {"2025-05-12.xml", 2767},
+    jun2025 = {"2025-06-10.xml", 2776}
 )]
 fn all_historical(file: &str, count: usize) {
     let mut filepath = PathBuf::from(BASE_PATH);
