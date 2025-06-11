@@ -17,10 +17,7 @@
         "flydreame.docblocker",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "graphite.gti-vscode",
-        "ms-azuretools.vscode-docker",
-        "ms-vscode.cpptools-extension-pack",
-        "ms-vscode.makefile-tools",
+        "ms-azuretools.vscode-containers",
         "panicbit.cargo",
         "rust-lang.rust-analyzer",
         "tamasfe.even-better-toml",
@@ -42,18 +39,11 @@
   "features": {
     "ghcr.io/devcontainers/features/git-lfs:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/rust:1": {
       "profile": "complete"
     },
-    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-    "ghcr.io/devcontainers-extra/features/starship:1": {},
-    "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {}
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {}
   },
-  "mounts": [
-    "source=${localEnv:HOME}/.config,target=/home/vscode/.config,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/dotfiles,target=/home/vscode/dotfiles,type=bind,consistency=cached"
-  ],
   "name": "iso10383",
   "privileged": true,
   "postCreateCommand": "/workspaces/iso10383/.devcontainer/post-create.sh",
