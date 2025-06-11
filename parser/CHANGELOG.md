@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2](https://github.com/jcape/iso10383/compare/v0.1.1...v0.1.2) - 2025-06-11
+
+### Fixed
+
+- *(lint)* fix parser changelog lint.
+
+### Other
+
+- *(test)* add june 2025 file to parser tests
+
 ## [0.1.1](https://github.com/jcape/iso10383/compare/v0.1.0...v0.1.1) - 2025-06-05
 
 ### Added
