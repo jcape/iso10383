@@ -47,7 +47,6 @@
   "name": "iso10383",
   "privileged": true,
   "postCreateCommand": "/workspaces/iso10383/.devcontainer/post-create.sh",
-  "postAttachCommand": "/workspaces/iso10383/.devcontainer/post-attach.sh",
   "remoteEnv": {
     "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
     "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit"
