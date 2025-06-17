@@ -3,11 +3,12 @@
     "SYS_PTRACE"
   ],
   "containerEnv": {
+    "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
     "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
     "EDITOR": "code --reuse-window --wait",
-    "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
     "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit",
-    "RUSTC_WRAPPER": "sccache"
+    "RUSTC_WRAPPER": "sccache",
+    "SCCACHE_DIR": "/workspaces/iso10383/.cache/sccache"
   },
   "containerUser": "vscode",
   "customizations": {
@@ -52,7 +53,8 @@
   "remoteEnv": {
     "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
     "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit",
-    "RUSTC_WRAPPER": "sccache"
+    "RUSTC_WRAPPER": "sccache",
+    "SCCACHE_DIR": "/workspaces/iso10383/.cache/sccache"
   },
   "securityOpt": [
     "seccomp=unconfined"
