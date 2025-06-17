@@ -2,7 +2,7 @@
 name = "iso10383-parser"
 version.workspace = true
 authors.workspace = true
-description = "Parser for ISO 10383 CSV data"
+description = "Parser for ISO 10383 XML Data"
 edition.workspace = true
 license.workspace = true
 readme.workspace = true
@@ -15,7 +15,10 @@ std = ["serde/std"]
 
 [dependencies]
 serde = { version = "1.0", default-features = false, features = ["derive"] }
-quick-xml = { version = "0.37.2", features = ["serialize"] }
 
 [dev-dependencies]
 yare = "3"
+quick-xml.workspace = true
+
+[lints]
+workspace = true

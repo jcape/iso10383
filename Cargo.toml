@@ -2,6 +2,20 @@
 resolver = "2"
 members = ["parser"]
 
+[workspace.dependencies]
+iso10383-parser = { path = "./parser" }
+iso10383-static = { path = "./static" }
+iso10383-types = { path = "./types" }
+quick-xml = { version = "0.37.2", features = ["serialize"] }
+
+[workspace.lints.clippy]
+missing_safety_doc = "forbid"
+
+[workspace.lints.rust]
+missing_docs = "forbid"
+unsafe_code = "deny"
+missing_debug_implementations = "forbid"
+
 [workspace.metadata.release]
 shared-version = true
 consolidate-commits = true
