@@ -2,7 +2,7 @@
 default_install_hook_types:
   - pre-commit
   - commit-msg
-
+exclude: ^LICENSE
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -24,7 +24,9 @@ repos:
       - id: fmt
       - id: check
       - id: clippy
+        args: ['--workspace', '--no-deps']
       - id: test
+        args: ['--workspace']
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.0.0
     hooks:
