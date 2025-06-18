@@ -11,9 +11,11 @@ rust-version.workspace = true
 
 [features]
 default = ["std"]
-std = ["serde/std"]
+std = ["serde/std", "chrono/serde"]
 
 [dependencies]
+chrono.workspace = true
+iso10383-types.workspace = true
 serde = { version = "1.0", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
