@@ -18,15 +18,6 @@ repos:
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: trailing-whitespace
-  - repo: https://github.com/backplane/pre-commit-rust-hooks
-    rev: v1.1.0
-    hooks:
-      - id: fmt
-      - id: check
-      - id: clippy
-        args: ['--workspace', '--no-deps']
-      - id: test
-        args: ['--workspace']
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.0.0
     hooks:
@@ -41,3 +32,16 @@ repos:
     rev: v1.35.1
     hooks:
       - id: yamllint
+  - repo: https://github.com/EmbarkStudios/cargo-deny
+    rev: 0.18.4
+    hooks:
+      - id: cargo-deny
+  - repo: https://github.com/backplane/pre-commit-rust-hooks
+    rev: v1.1.0
+    hooks:
+      - id: fmt
+      - id: check
+      - id: clippy
+        args: ['--workspace', '--no-deps']
+      - id: test
+        args: ['--workspace']

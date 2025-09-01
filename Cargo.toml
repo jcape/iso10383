@@ -4,9 +4,9 @@ members = ["parser", "types"]
 
 [workspace.dependencies]
 chrono = { version = "0.4", default-features = false }
-iso10383-parser = { path = "./parser" }
-iso10383-static = { path = "./static" }
-iso10383-types = { path = "./types" }
+iso10383-parser = { path = "./parser", version = "0.1.2" }
+iso10383-static = { path = "./static", version = "0.1.2" }
+iso10383-types = { path = "./types", version = "0.1.2" }
 iso17442-types = { version = "0.2", default-features = false }
 quick-xml = { version = "0.37.2", features = ["serialize"] }
 
