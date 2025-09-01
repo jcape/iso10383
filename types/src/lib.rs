@@ -1,4 +1,5 @@
 //! ISO 10383 Types
+
 #![doc = include_str!("../README.md")]
 #![no_std]
 

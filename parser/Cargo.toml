@@ -5,7 +5,7 @@ authors.workspace = true
 description = "Parser for ISO 10383 XML Data"
 edition.workspace = true
 license.workspace = true
-readme.workspace = true
+readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
 

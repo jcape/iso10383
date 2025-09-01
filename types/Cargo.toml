@@ -5,13 +5,13 @@ authors.workspace = true
 description = "ISO 10383 Types"
 edition.workspace = true
 license.workspace = true
-readme.workspace = true
+readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
 
 [features]
 default = ["alloc", "serde"]
-alloc = []
+alloc = ["serde?/alloc"]
 serde = ["dep:serde"]
 
 [dependencies]

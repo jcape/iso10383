@@ -1,4 +1,5 @@
 //! ISO 10383 Market Identifier Codes XML Parser
+
 #![doc = include_str!("../README.md")]
 
 use iso10383_types::{Category, Kind, Mic, Status};
