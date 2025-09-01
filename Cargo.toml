@@ -4,9 +4,9 @@ members = ["parser", "types"]
 
 [workspace.dependencies]
 chrono = { version = "0.4", default-features = false }
-iso10383-parser = { path = "./parser", version = "0.1.2" }
+iso10383-parser = { path = "./parser", version = "0.2.0" }
 iso10383-static = { path = "./static", version = "0.1.2" }
-iso10383-types = { path = "./types", version = "0.1.2" }
+iso10383-types = { path = "./types", version = "0.2.0" }
 iso17442-types = { version = "0.2", default-features = false }
 quick-xml = { version = "0.38.3", features = ["serialize"] }
 
@@ -31,7 +31,7 @@ license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/jcape/iso10383"
 rust-version = "1.87.0"
-version = "0.1.2"
+version = "0.2.0"
 
 [profile.release]
 lto = true

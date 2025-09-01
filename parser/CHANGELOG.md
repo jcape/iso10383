@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/jcape/iso10383/compare/iso10383-parser-v0.1.2...iso10383-parser-v0.2.0) - 2025-09-01
+
+### Added
+
+- august list
+- [**breaking**] `types` crate with &mic/Mic, parser enums
+
+### Fixed
+
+- fix issues with iso10383-types release
+
+### Other
+
+- add missing enum docs, fix some style issues
+
 ## [0.1.2](https://github.com/jcape/iso10383/compare/v0.1.1...v0.1.2) - 2025-06-11
 
 ### Fixed
