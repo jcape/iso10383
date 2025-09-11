@@ -3,6 +3,7 @@ name = "iso10383-types"
 version.workspace = true
 authors.workspace = true
 description = "ISO 10383 Types"
+documentation = "https://docs.rs/iso10383-types"
 edition.workspace = true
 license.workspace = true
 readme = "README.md"

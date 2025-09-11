@@ -3,6 +3,7 @@ name = "iso10383-parser"
 version.workspace = true
 authors.workspace = true
 description = "Parser for ISO 10383 XML Data"
+documentation = "https://docs.rs/iso10383-parser"
 edition.workspace = true
 license.workspace = true
 readme = "README.md"
@@ -11,10 +12,10 @@ rust-version.workspace = true
 
 [dependencies]
 chrono = { workspace = true, features = ["std", "serde"] }
-serde = { workspace = true, features = ["derive"] }
 iso10383-types = { version = "=0.2.0", path = "../types", features = [
     "serde",
 ] }
+serde = { workspace = true, features = ["derive"] }
 
 [dev-dependencies]
 yare = "3"
