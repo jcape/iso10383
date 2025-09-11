@@ -16,7 +16,5 @@ serde = ["dep:serde"]
 
 [dependencies]
 ref-cast = "1.0"
+serde = { workspace = true, features = ["derive"], optional = true }
 thiserror = { version = "2.0", default-features = false }
-serde = { version = "1.0", default-features = false, features = [
-    "derive",
-], optional = true }

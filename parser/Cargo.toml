@@ -9,14 +9,12 @@ readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
 
-[features]
-default = ["std"]
-std = ["serde/std", "chrono/serde"]
-
 [dependencies]
-chrono.workspace = true
-iso10383-types.workspace = true
-serde = { version = "1.0", default-features = false, features = ["derive"] }
+chrono = { workspace = true, features = ["std", "serde"] }
+serde = { workspace = true, features = ["derive"] }
+iso10383-types = { version = "=0.2.0", path = "../types", features = [
+    "serde",
+] }
 
 [dev-dependencies]
 yare = "3"

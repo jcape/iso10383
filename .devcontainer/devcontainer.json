@@ -21,7 +21,6 @@
         "github.vscode-pull-request-github",
         "ms-azuretools.vscode-containers",
         "panicbit.cargo",
-        "rust-lang.rust-analyzer",
         "tamasfe.even-better-toml",
         "vadimcn.vscode-lldb"
       ],

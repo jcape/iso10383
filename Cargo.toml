@@ -1,14 +1,13 @@
 [workspace]
 resolver = "2"
 members = ["parser", "types"]
+exclude = [".cache"]
 
 [workspace.dependencies]
 chrono = { version = "0.4", default-features = false }
-iso10383-parser = { path = "./parser", version = "0.2.0" }
-iso10383-static = { path = "./static", version = "0.1.2" }
-iso10383-types = { path = "./types", version = "0.2.0" }
-iso17442-types = { version = "0.2", default-features = false }
+iso17442-types = { version = "0.3", default-features = false }
 quick-xml = { version = "0.38.3", features = ["serialize"] }
+serde = { version = "1", default-features = false }
 
 [workspace.lints.clippy]
 missing_safety_doc = "forbid"
