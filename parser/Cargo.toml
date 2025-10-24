@@ -12,7 +12,7 @@ rust-version.workspace = true
 
 [dependencies]
 chrono = { workspace = true, features = ["std", "serde"] }
-iso10383-types = { version = "=0.2.0", path = "../types", features = [
+iso10383-types = { version = "=0.3.0", path = "../types", features = [
     "serde",
 ] }
 serde = { workspace = true, features = ["derive"] }

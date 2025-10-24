@@ -30,7 +30,7 @@ license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/jcape/iso10383"
 rust-version = "1.87.0"
-version = "0.2.0"
+version = "0.3.0"
 
 [profile.release]
 lto = true

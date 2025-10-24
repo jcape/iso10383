@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/jcape/iso10383/compare/iso10383-types-v0.2.0...iso10383-types-v0.3.0) - 2025-10-24
+
+### Other
+
+- update documentation urls
+- *(ci)* add action-validator, cargo-deny to pre-commit
+
 ## [0.2.0](https://github.com/jcape/iso10383/compare/iso10383-types-v0.1.2...iso10383-types-v0.2.0) - 2025-09-01
 
 ### Added
