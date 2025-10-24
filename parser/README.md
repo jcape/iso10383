@@ -5,7 +5,11 @@
 -->[![Docs Status][docs-image]][docs-link]<!--
 -->[![Dependency Status][deps-image]][deps-link]
 
-This crate provides a serde-based parser for the ISO 10383 XML data.
+This crate provides the data structures necessasry to parse ISO 10383 XML data with [`quick-xml`](https://docs.rs/quick-xml).
+
+```rust,no_run
+
+```
 
 [license-link]: ../LICENSE
 [license-image]: https://img.shields.io/github/license/jcape/iso10383?style=flat-square
