@@ -1,14 +1,21 @@
 [package]
 name = "iso10383-types"
-version.workspace = true
 authors.workspace = true
+categories = [
+  "data-structures",
+  "finance",
+  "no-std",
+  "no-std::no-alloc",
+]
 description = "ISO 10383 Types"
 documentation = "https://docs.rs/iso10383-types"
 edition.workspace = true
+keywords = ["iso10383", "market-identifier-codes"]
 license.workspace = true
 readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
+version.workspace = true
 
 [features]
 default = ["alloc", "serde"]

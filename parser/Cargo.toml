@@ -1,14 +1,20 @@
 [package]
 name = "iso10383-parser"
-version.workspace = true
 authors.workspace = true
+categories = [
+  "data-structures",
+  "finance",
+  "parser-implementations",
+]
 description = "Parser for ISO 10383 XML Data"
 documentation = "https://docs.rs/iso10383-parser"
 edition.workspace = true
+keywords = ["iso10383", "market-identifier-codes"]
 license.workspace = true
 readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
+version.workspace = true
 
 [dependencies]
 chrono = { workspace = true, features = ["std", "serde"] }
