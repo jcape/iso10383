@@ -6,9 +6,7 @@
     "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
     "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
     "EDITOR": "code --reuse-window --wait",
-    "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit",
-    "RUSTC_WRAPPER": "sccache",
-    "SCCACHE_DIR": "/workspaces/iso10383/.cache/sccache"
+    "PREK_HOME": "/workspaces/iso10383/.cache/prek"
   },
   "containerUser": "vscode",
   "customizations": {
@@ -42,8 +40,7 @@
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/rust:1": {
       "profile": "complete"
-    },
-    "ghcr.io/devcontainers-extra/features/pre-commit:2": {}
+    }
   },
   "name": "iso10383",
   "privileged": true,
@@ -51,9 +48,9 @@
   "postAttachCommand": "/workspaces/iso10383/.devcontainer/post-attach.sh",
   "remoteEnv": {
     "CARGO_HOME": "/workspaces/iso10383/.cache/cargo",
-    "PRE_COMMIT_HOME": "/workspaces/iso10383/.cache/pre-commit",
-    "RUSTC_WRAPPER": "sccache",
-    "SCCACHE_DIR": "/workspaces/iso10383/.cache/sccache"
+    "CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG": "true",
+    "EDITOR": "code --reuse-window --wait",
+    "PREK_HOME": "/workspaces/iso10383/.cache/prek"
   },
   "securityOpt": [
     "seccomp=unconfined"
