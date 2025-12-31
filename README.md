@@ -16,8 +16,8 @@ A collection of crates for use with ISO 18383 Market Identifier Codes.
 
 [//]: # (badges)
 
-[license-link]: LICENSE
 [license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
+[license-link]: LICENSE
 [deps-image]: https://deps.rs/repo/github/jcape/iso10383/status.svg?style=for-the-badge
 [deps-link]: https://deps.rs/repo/github/jcape/iso10383
 [codecov-image]: https://img.shields.io/codecov/c/github/jcape/iso10383/main?style=for-the-badge

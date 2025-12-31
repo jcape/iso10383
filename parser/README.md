@@ -9,11 +9,11 @@ This crate provides the data structures necessasry to parse ISO 10383 XML data w
 
 [//]: # (badges)
 
+[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
 [license-link]: ../LICENSE
-[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=flat-square
-[crate-image]: https://img.shields.io/crates/v/iso10383-parser.svg?style=flat-square
-[crate-link]: https://crates.io/crates/iso10383-parser/0.3.0
-[docs-image]: https://img.shields.io/docsrs/iso10383-parser?style=flat-square
-[docs-link]: https://docs.rs/crate/iso10383-parser/0.3.0/iso10383_parser
-[deps-image]: https://deps.rs/crate/iso10383-parser/0.3.0/status.svg?style=flat-square
-[deps-link]: https://deps.rs/crate/iso10383-parser/0.3.0
+[crate-image]: https://img.shields.io/crates/v/iso10383-parser.svg?style=for-the-badge
+[crate-link]: https://crates.io/crates/iso10383-parser/0.3.1
+[docs-image]: https://img.shields.io/docsrs/iso10383-parser?style=for-the-badge
+[docs-link]: https://docs.rs/crate/iso10383-parser/0.3.1/iso10383_parser
+[deps-image]: https://deps.rs/crate/iso10383-parser/0.3.1/status.svg?style=for-the-badge
+[deps-link]: https://deps.rs/crate/iso10383-parser/0.3.1

@@ -9,11 +9,11 @@ This crate provides basic types for working with ISO 10383 data, including an ow
 
 [//]: # (badges)
 
+[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
 [license-link]: ../LICENSE
-[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-social
-[crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=for-the-social
-[crate-link]: https://crates.io/crates/iso10383-types/0.3.0
-[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.0?style=for-the-social
-[docs-link]: https://docs.rs/crate/iso10383-types/0.3.0/iso10383_types/
-[deps-image]: https://deps.rs/crate/iso10383-types/0.3.0/status.svg?style=for-the-social
-[deps-link]: https://deps.rs/crate/iso10383-types/0.3.0
+[crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=for-the-badge
+[crate-link]: https://crates.io/crates/iso10383-types/0.3.1
+[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.1?style=for-the-badge
+[docs-link]: https://docs.rs/crate/iso10383-types/0.3.1/iso10383_types/
+[deps-image]: https://deps.rs/crate/iso10383-types/0.3.1/status.svg?style=for-the-badge
+[deps-link]: https://deps.rs/crate/iso10383-types/0.3.1
