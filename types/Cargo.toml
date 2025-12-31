@@ -19,10 +19,11 @@ version.workspace = true
 
 [features]
 default = ["alloc", "serde"]
-alloc = ["serde?/alloc"]
-serde = ["dep:serde"]
+alloc = ["serde?/alloc", "iso3166-static/alloc"]
+serde = ["dep:serde", "iso3166-static/serde"]
 
 [dependencies]
 ref-cast = "1.0"
+iso3166-static.workspace = true
 serde = { workspace = true, features = ["derive"], optional = true }
 thiserror = { version = "2.0", default-features = false }

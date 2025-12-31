@@ -26,7 +26,7 @@ fn all_historical(file: &str, count: usize) {
     let handle = File::open(&filepath).expect("Could not create XML Reader");
     let reader = BufReader::new(handle);
 
-    let output: MicList = de::from_reader(reader).expect("Could not parse XML");
+    let output = de::from_reader::<_, MicList>(reader).expect("Could not parse XML");
 
     assert_eq!(count, output.len());
 }

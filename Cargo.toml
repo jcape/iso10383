@@ -5,6 +5,7 @@ exclude = [".cache"]
 
 [workspace.dependencies]
 chrono = { version = "0.4", default-features = false }
+iso3166-static = { version = "0.3", default-features = false }
 iso17442-types = { version = "0.3", default-features = false }
 quick-xml = { version = "0.38.3", features = ["serialize"] }
 serde = { version = "1", default-features = false }
@@ -22,7 +23,6 @@ missing_docs = "deny"
 unreachable_pub = "deny"
 rust_2018_idioms = "deny"
 unsafe_code = "deny"
-
 
 [workspace.metadata.release]
 shared-version = true

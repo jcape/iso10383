@@ -3,6 +3,7 @@
 #![doc = include_str!("../README.md")]
 
 use iso10383_types::{Category, Kind, Mic, Status};
+use iso3166_static::Alpha2;
 use serde::{Deserialize, Serialize};
 use std::{
     cell::RefCell,
@@ -95,7 +96,7 @@ pub struct MicRecord {
 
     /// ISO 3166-2 alpha-2 code
     #[serde(alias = "ISO_x0020_COUNTRY_x0020_CODE_x0020__x0028_ISO_x0020_3166_x0029_")]
-    pub country: String,
+    pub country: Alpha2,
 
     /// The city where this market is located
     #[serde(alias = "CITY")]
