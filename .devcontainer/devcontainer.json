@@ -30,7 +30,12 @@
           "editor.rulers": [
             100
           ]
-        }
+        },
+        "rust-analyzer.cargo.targetDir": true,
+        "rust-analyzer.imports.granularity.enforce": true,
+        "rust-analyzer.imports.granularity.group": "crate",
+        "rust-analyzer.imports.group.enable": false,
+        "rust-analyzer.imports.merge.glob": false
       }
     }
   },
