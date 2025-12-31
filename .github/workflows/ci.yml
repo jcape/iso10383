@@ -2,9 +2,6 @@
 name: ci
 
 "on":
-  push:
-    branches:
-      - 'main'
   pull_request:
 
 env:
@@ -110,23 +107,3 @@ jobs:
             --release \
             --all-features \
             --no-deps
-
-  test-coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: llvm-tools-preview
-      - uses: taiki-e/install-action@cargo-llvm-cov
-      - name: Run tests with coverage
-        run: |
-          cargo llvm-cov \
-            --workspace \
-            --all-features \
-            --lcov \
-            --output-path lcov.info
-      - uses: codecov/codecov-action@v3
-        with:
-          files: lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}

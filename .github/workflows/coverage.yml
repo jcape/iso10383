@@ -1,0 +1,31 @@
+---
+name: coverage
+
+"on":
+  push:
+    branches:
+      - 'main'
+
+env:
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: llvm-tools-preview
+      - uses: taiki-e/install-action@cargo-llvm-cov
+      - name: Run tests with coverage
+        run: |
+          cargo llvm-cov \
+            --workspace \
+            --all-features \
+            --lcov \
+            --output-path lcov.info
+      - uses: codecov/codecov-action@v3
+        with:
+          files: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
