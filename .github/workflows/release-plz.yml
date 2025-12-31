@@ -1,6 +1,6 @@
 name: Release-plz
 
-on:
+"on":
   push:
     branches:
       - main
@@ -45,9 +45,36 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run release-plz
+        id: release-plz
         uses: release-plz/action@v0.5
         with:
           command: release-pr
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - name: Update README.mds
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.release-plz.outputs.pr }}
+        # yamllint disable rule:line-length
+        run: |
+          set -e
+
+          pr_number=${{ fromJSON(steps.release-plz.outputs.pr).number }}
+          if [[ -n "$pr_number" ]]; then
+            packages=$(echo $PR | jq '.releases.[].package_name' | sed -e 's/"//g')
+            version=$(echo $PR | jq '.releases.[].version' | sed -e 's/"//g' | uniq)
+
+            gh pr checkout $pr_number
+
+            for pkg in $packages; do
+                crate=$(echo $pkg | sed -e 's/iso10383-//')
+                sed -i -e "s|$pkg/[0-9.]\+|$pkg/$version|g" "$crate/README.md"
+                git add "$crate/README.md"
+            done
+
+            git status
+            git commit --amend --no-edit
+            git push --force
+          fi
+        # yamllint enable rule:line-length

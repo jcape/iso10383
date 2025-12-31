@@ -14,13 +14,15 @@ A collection of crates for use with ISO 18383 Market Identifier Codes.
 | `iso10383-parser` | A library for parsing the `ISO10383_MIC.XML` files |
 | `iso10383-static` | Constant data for use in applications which handle MICs |
 
+[//]: # (badges)
+
 [license-link]: LICENSE
-[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=flat-square
-[deps-image]: https://deps.rs/repo/github/jcape/iso10383/status.svg?style=flat-square
+[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
+[deps-image]: https://deps.rs/repo/github/jcape/iso10383/status.svg?style=for-the-badge
 [deps-link]: https://deps.rs/repo/github/jcape/iso10383
-[codecov-image]: https://img.shields.io/codecov/c/github/jcape/iso10383/main?style=flat-square
+[codecov-image]: https://img.shields.io/codecov/c/github/jcape/iso10383/main?style=for-the-badge
 [codecov-link]: https://codecov.io/gh/jcape/iso10383
-[gha-image]: https://img.shields.io/github/actions/workflow/status/jcape/iso10383/ci.yml?branch=main&style=flat-square
+[gha-image]: https://img.shields.io/github/actions/workflow/status/jcape/iso10383/ci.yml?branch=main&style=for-the-badge
 [gha-link]: https://github.com/jcape/iso10383/actions/workflows/ci.yml?query=branch%3Amain
 [conduct-link]: CODE_OF_CONDUCT.md
-[conduct-image]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square
+[conduct-image]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=for-the-badge
