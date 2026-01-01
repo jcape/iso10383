@@ -1,12 +1,7 @@
 [package]
 name = "iso10383-types"
 authors.workspace = true
-categories = [
-  "data-structures",
-  "finance",
-  "no-std",
-  "no-std::no-alloc",
-]
+categories = ["data-structures", "finance", "no-std", "no-std::no-alloc"]
 description = "ISO 10383 Types"
 documentation = "https://docs.rs/iso10383-types"
 edition.workspace = true
