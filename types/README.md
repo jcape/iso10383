@@ -13,8 +13,8 @@ If you're looking for stronger validation and smaller storage requirements, you 
 
 [license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
 [crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=for-the-badge
-[crate-link]: https://crates.io/crates/iso10383-types/0.3.1
-[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.1?style=for-the-badge
-[docs-link]: https://docs.rs/crate/iso10383-types/0.3.1/iso10383_types/
-[deps-image]: https://deps.rs/crate/iso10383-types/0.3.1/status.svg?style=for-the-badge
-[deps-link]: https://deps.rs/crate/iso10383-types/0.3.1
+[crate-link]: https://crates.io/crates/iso10383-types/0.3.2
+[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.2?style=for-the-badge
+[docs-link]: https://docs.rs/crate/iso10383-types/0.3.2/iso10383_types/
+[deps-image]: https://deps.rs/crate/iso10383-types/0.3.2/status.svg?style=for-the-badge
+[deps-link]: https://deps.rs/crate/iso10383-types/0.3.2
