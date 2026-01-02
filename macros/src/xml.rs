@@ -349,7 +349,7 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
     let count = const_ident.len();
 
     quote::quote! {
-        /// A constant array of references to all records.
+        /// A constant array of references to all MIC records.
         pub const ALL_MICS: [&Record; #count] = [
             #(
                 &#const_ident,
