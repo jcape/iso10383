@@ -346,8 +346,16 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
     let last_validation_date = records.last_validation();
     let expiry_date = records.expiry();
     let comments = records.comments();
+    let count = const_ident.len();
 
     quote::quote! {
+        /// A constant array of references to all records.
+        pub const ALL_MICS: [&Record; #count] = [
+            #(
+                &#const_ident,
+            )*
+        ];
+
         #(
             #[doc = #name]
             pub const #const_ident: Record = Record {
