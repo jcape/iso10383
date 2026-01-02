@@ -1,12 +1,12 @@
 //! Serde Implementations
 
-use crate::{mic, Error, Mic};
+use crate::{Error, Mic, mic};
 #[cfg(feature = "alloc")]
 use alloc::{string::String, vec::Vec};
 use core::fmt::{Formatter, Result as FmtResult};
 use serde::{
-    de::{Error as DeError, Unexpected, Visitor},
     Deserialize, Deserializer, Serialize, Serializer,
+    de::{Error as DeError, Unexpected, Visitor},
 };
 
 impl Serialize for mic {

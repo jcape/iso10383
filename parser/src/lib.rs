@@ -2,8 +2,8 @@
 
 #![doc = include_str!("../README.md")]
 
-use iso10383_types::{Category, Kind, Mic, Status};
 use iso3166_static::Alpha2;
+use iso10383_types::{Category, Kind, Mic, Status};
 use serde::{Deserialize, Serialize};
 use std::{
     cell::RefCell,

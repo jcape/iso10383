@@ -1,0 +1,31 @@
+[package]
+name = "iso10383-static"
+version.workspace = true
+authors.workspace = true
+categories = ["data-structures", "finance", "no-std", "no-std::no-alloc"]
+description = "Static ISO 10383 Data"
+documentation = "https://docs.rs/iso10383-static"
+edition.workspace = true
+keywords = ["iso10383", "mic"]
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+chrono.workspace = true
+iso3166-static.workspace = true
+iso10383-macros.workspace = true
+iso10383-types.workspace = true
+iso17442-types.workspace = true
+
+[build-dependencies]
+iso17442-types = { workspace = true, default-features = true }
+anyhow = "1.0"
+quick-xml.workspace = true
+
+[lints]
+workspace = true
+
+[package.metadata.docs.rs]
+all-features = true

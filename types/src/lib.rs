@@ -18,7 +18,7 @@ use core::{
     ops::Deref,
     str::FromStr,
 };
-use ref_cast::{ref_cast_custom, RefCastCustom};
+use ref_cast::{RefCastCustom, ref_cast_custom};
 use thiserror::Error as ThisError;
 
 #[cfg(feature = "serde")]

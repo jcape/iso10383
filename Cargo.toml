@@ -1,11 +1,15 @@
 [workspace]
 resolver = "2"
-members = ["parser", "types"]
+members = ["macros", "parser", "static", "types"]
 exclude = [".cache"]
 
 [workspace.dependencies]
-chrono = { version = "0.4", default-features = false }
+chrono = { version = "0.4.20", default-features = false }
 iso3166-static = { version = "0.3", default-features = false }
+iso10383-macros = { version = "=0.3.1", path = "./macros" }
+iso10383-parser = { version = "=0.3.1", path = "./parser" }
+iso10383-static = { version = "=0.3.1", path = "./static" }
+iso10383-types = { version = "=0.3.1", path = "./types" }
 iso17442-types = { version = "0.3", default-features = false }
 quick-xml = { version = "0.38.3", features = ["serialize"] }
 serde = { version = "1", default-features = false }
@@ -31,7 +35,7 @@ tag-name = "v{{version}}"
 
 [workspace.package]
 authors = ["James Cape <jamescape777@gmail.com>"]
-edition = "2021"
+edition = "2024"
 homepage = "https://github.com/jcape/iso10383"
 license = "Apache-2.0"
 readme = "README.md"
