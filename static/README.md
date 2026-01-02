@@ -5,9 +5,9 @@
 -->[![Dependency Status][deps-image]][deps-link]<!--
 -->![License][license-image]
 
-This crate contains static, `const`-friendly structures and data from the ISO 10383 MIC data distributed by the [ISO 20022 Website](https://www.iso20022.org/market-identifier-codes).
+This crate contains static, `const`-friendly structures and data from the ISO 10383 MIC data distributed by the [ISO 20022 Website](https://www.iso20022.org/market-identifier-codes). More specifically, it contains a [`Code`] enum which enumerates all of the market identifier codes distributed, with accessors to read particular data, and a set of constants containing individual records.
 
-Those looking for a library to parse the XML files distributed by ISO 20022 should see [`iso10383-parser`](https://crates.io/crates/iso10383-parser).
+If you're _only_ looking for a simple string-oriented type that will perform basic well-formedness checks on a MIC code string, but not ensure the given code actuall exists, you should use [`iso10383-types`](https://crates.io/crates/iso10383-types).
 
 [//]: # (badges)
 

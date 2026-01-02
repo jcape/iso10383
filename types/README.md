@@ -5,7 +5,9 @@
 -->[![Dependency Status][deps-image]][deps-link]<!--
 -->![License][license-image]
 
-This crate provides basic types for working with ISO 10383 data, including an owned [`Mic`](crate::Mic), borrowed [`mic`](crate::mic), and an `Error` enum for handling validation errors.
+This crate provides basic no-std, no-alloc capable types for working with ISO 10383 data, including an owned [`Mic`](crate::Mic) and it's associated [`&mic`](crate::mic) borrow, as well as additional enums for handling [`Kind`], [`Category`], and [`Status`] of a code.
+
+If you're looking for stronger validation and smaller storage requirements, you probably want the [`iso10383-static`](https://crates.io/crates/iso10383-static) crate.
 
 [//]: # (badges)
 
