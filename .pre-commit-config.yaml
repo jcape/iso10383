@@ -45,7 +45,8 @@ repos:
     hooks:
       - id: fmt
       - id: check
+        args: ['--workspace', '--all-features']
       - id: clippy
         args: ['--workspace', '--no-deps']
       - id: test
-        args: ['--workspace']
+        args: ['--workspace', '--all-features']

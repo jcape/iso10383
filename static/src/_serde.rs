@@ -58,12 +58,11 @@ impl<'de> Visitor<'de> for CodeVisitor {
         Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
     }
 
-    #[cfg(feature = "alloc")]
-    fn visit_str<E>(self, v: String) -> Result<Self::Value, E>
+    fn visit_str<E>(self, src: &str) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_str(&src)
+        let value = mic::from_str(src)
             .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
         Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
     }
