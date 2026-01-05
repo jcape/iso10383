@@ -13,6 +13,7 @@ iso10383-types = { version = "=0.3.1", path = "./types" }
 iso17442-types = { version = "0.3", default-features = false }
 quick-xml = { version = "0.38.3", features = ["serialize"] }
 serde = { version = "1", default-features = false }
+serde_json = "1"
 
 [workspace.lints.clippy]
 cargo = "deny"

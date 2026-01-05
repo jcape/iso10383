@@ -103,3 +103,19 @@ impl<'de> Deserialize<'de> for Mic {
         deserializer.deserialize_str(OwnedMicVisitor)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::Mic;
+    use core::str::FromStr;
+
+    #[test]
+    fn serde_roundtrip() {
+        let start = Mic::from_str("IEXG").expect("ctor");
+        let serde = serde_json::to_string(&start).expect("ser");
+        assert_eq!("\"IEXG\"", serde);
+
+        let end = serde_json::from_str::<Mic>(&serde).expect("end");
+        assert_eq!(start, end);
+    }
+}

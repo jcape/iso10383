@@ -2,7 +2,7 @@
 name = "iso10383-static"
 version.workspace = true
 authors.workspace = true
-categories = ["data-structures", "finance", "no-std", "no-std::no-alloc"]
+categories = ["finance", "localization", "no-std", "no-std::no-alloc"]
 description = "Static ISO 10383 Data"
 documentation = "https://docs.rs/iso10383-static"
 edition.workspace = true
@@ -18,11 +18,27 @@ iso3166-static.workspace = true
 iso10383-macros.workspace = true
 iso10383-types.workspace = true
 iso17442-types.workspace = true
+serde = { workspace = true, optional = true }
 
-[build-dependencies]
-iso17442-types = { workspace = true, default-features = true }
-anyhow = "1.0"
-quick-xml.workspace = true
+[dev-dependencies]
+serde_json.workspace = true
+
+[features]
+default = ["serde"]
+alloc = [
+    "serde?/alloc",
+    "chrono/alloc",
+    "iso3166-static/alloc",
+    "iso10383-types/alloc",
+    "iso17442-types/alloc",
+]
+serde = [
+    "dep:serde",
+    "chrono/serde",
+    "iso3166-static/serde",
+    "iso10383-types/serde",
+    "iso17442-types/serde",
+]
 
 [lints]
 workspace = true

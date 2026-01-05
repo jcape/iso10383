@@ -386,6 +386,7 @@ fn generate_data(records: &RecordSet) -> TokenStream {
     let mut retval = quote::quote! {
         /// All data about a MIC
         #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+        #[cfg_attr(feature = "serde", derive(::serde::Deserialize, ::serde::Serialize))]
         pub struct Record {
             /// The market identifier code.
             pub code: Code,
