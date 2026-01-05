@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/jcape/iso10383/compare/iso10383-parser-v0.3.1...iso10383-parser-v0.3.2) - 2026-01-05
+
+### Added
+
+- serde support and roundtrip tests
+- add macros and static code generation
+
+### Other
+
+- update READMEs and add a ChangeLog to macros
+- remove license-link
+- enable all-features in docsrs
+
 ## [0.3.1](https://github.com/jcape/iso10383/compare/iso10383-parser-v0.3.0...iso10383-parser-v0.3.1) - 2025-12-21
 
 ### Added
