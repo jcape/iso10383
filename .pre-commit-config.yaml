@@ -44,9 +44,25 @@ repos:
     rev: v1.1.0
     hooks:
       - id: fmt
-      - id: check
-        args: ['--workspace', '--all-features']
+        args:
+          - '--all'
+          - '--'
       - id: clippy
-        args: ['--workspace', '--no-deps']
+        args:
+          - '--workspace'
+          - '--all-features'
+          - '--all-targets'
+          - '--fix'
+          - '--allow-dirty'
+          - '--'
+          - '--no-deps'
+      - id: clippy
+        args:
+          - '--workspace'
+          - '--all-features'
+          - '--all-targets'
+          - '--'
+          - '--no-deps'
       - id: test
-        args: ['--workspace', '--all-features']
+        args:
+          - '--workspace'
