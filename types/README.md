@@ -11,10 +11,10 @@ If you're looking for stronger validation and smaller storage requirements, you 
 
 [//]: # (badges)
 
-[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
-[crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=for-the-badge
+[license-image]: https://img.shields.io/github/license/jcape/iso10383?style=flat-square
+[crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=flat-square
 [crate-link]: https://crates.io/crates/iso10383-types/0.3.2
-[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.2?style=for-the-badge
+[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.3.2?style=flat-square
 [docs-link]: https://docs.rs/crate/iso10383-types/0.3.2/iso10383_types/
-[deps-image]: https://deps.rs/crate/iso10383-types/0.3.2/status.svg?style=for-the-badge
+[deps-image]: https://deps.rs/crate/iso10383-types/0.3.2/status.svg?style=flat-square
 [deps-link]: https://deps.rs/crate/iso10383-types/0.3.2
