@@ -18,7 +18,7 @@ jobs:
       - uses: r7kamura/rust-problem-matchers@v1
       - run: cargo fmt --all -- --check
       - uses: xt0rted/markdownlint-problem-matcher@v3
-      - uses: DavidAnson/markdownlint-cli2-action@v19
+      - uses: DavidAnson/markdownlint-cli2-action@v22
         with:
           globs: "**/*.md"
       - uses: karancode/yamllint-github-action@v3.0.0
