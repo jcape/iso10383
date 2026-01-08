@@ -9,13 +9,18 @@
 A collection of crates for use with ISO 18383 Market Identifier Codes.
 
 | Crate | Usage |
-|-------|-------|
-| `iso10383-types` | Core MIC types |
-| `iso10383-parser` | A library for parsing the `ISO10383_MIC.XML` files |
-| `iso10383-static` | Constant data for use in applications which handle MICs |
+| ----- | ----- |
+| [`iso10383-types`][types-link] | Core MIC types |
+| [`iso10383-static`][static-link] | Constant data for use in applications which handle MICs |
+| [`iso10383-parser`][parser-link] | A library for parsing the `ISO10383_MIC.XML` files |
+| [`iso10383-macros`][macros-link] | A library for parsing the `ISO10383_MIC.XML` files |
 
 [//]: # (badges)
 
+[types-link]: https://crates.io/crates/iso10383-types
+[static-link]: https://crates.io/crates/iso10383-static
+[parser-link]: https://crates.io/crates/iso10383-parser
+[macros-link]: https://crates.io/crates/iso10383-macros
 [license-image]: https://img.shields.io/github/license/jcape/iso10383?style=for-the-badge
 [license-link]: LICENSE
 [deps-image]: https://deps.rs/repo/github/jcape/iso10383/status.svg?style=for-the-badge
