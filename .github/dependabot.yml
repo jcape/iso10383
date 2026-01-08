@@ -3,15 +3,13 @@ version: 2
 updates:
   - package-ecosystem: "cargo"
     commit-message:
-      prefix: chore
-      scope: deps
+      prefix: "build(deps): "
     directory: "/"
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
     commit-message:
-      prefix: chore
-      scope: deps
+      prefix: "build(deps): "
     directory: "/"
     schedule:
       interval: "weekly"
