@@ -13,7 +13,7 @@ A collection of crates for use with ISO 18383 Market Identifier Codes.
 | [`iso10383-types`][types-link] | Core MIC types |
 | [`iso10383-static`][static-link] | Constant data for use in applications which handle MICs |
 | [`iso10383-parser`][parser-link] | A library for parsing the `ISO10383_MIC.XML` files |
-| [`iso10383-macros`][macros-link] | A which generates constant data and enumerations |
+| [`iso10383-macros`][macros-link] | A proc-macro crate which generates constant data and enumerations |
 
 [//]: # (badges)
 
