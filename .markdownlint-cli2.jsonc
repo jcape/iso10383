@@ -5,5 +5,8 @@
             "siblings_only": true
         }
     },
-    "gitignore": true
+    "gitignore": true,
+    "ignores": [
+        "CODE_OF_CONDUCT.md"
+    ]
 }
