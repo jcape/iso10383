@@ -4,5 +4,6 @@
         "no-duplicate-heading": {
             "siblings_only": true
         }
-    }
+    },
+    "gitignore": true
 }
