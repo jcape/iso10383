@@ -38,4 +38,4 @@ A collection of crates for use with ISO 18383 Market Identifier Codes.
 [gha-image]: https://img.shields.io/github/actions/workflow/status/jcape/iso10383/ci.yml?branch=main&style=flat-square
 [gha-link]: https://github.com/jcape/iso10383/actions/workflows/ci.yml?query=branch%3Amain
 [conduct-link]: CODE_OF_CONDUCT.md
-[conduct-image]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square
+[conduct-image]: https://img.shields.io/badge/CC-3.0-4baaaa.svg?style=flat-square
