@@ -13,8 +13,8 @@ As an end-user, this probably isn't the crate you're looking for, you probably w
 
 [license-image]: https://img.shields.io/github/license/jcape/iso10383?style=flat-square
 [crate-image]: https://img.shields.io/crates/v/iso10383-macros.svg?style=flat-square
-[crate-link]: https://crates.io/crates/iso10383-macros/0.3.2
+[crate-link]: https://crates.io/crates/iso10383-macros/0.3.3
 [docs-image]: https://img.shields.io/docsrs/iso10383-macros?style=flat-square
-[docs-link]: https://docs.rs/crate/iso10383-macros/0.3.2/iso10383_macros
-[deps-image]: https://deps.rs/crate/iso10383-macros/0.3.2/status.svg?style=flat-square
-[deps-link]: https://deps.rs/crate/iso10383-macros/0.3.2
+[docs-link]: https://docs.rs/crate/iso10383-macros/0.3.3/iso10383_macros
+[deps-image]: https://deps.rs/crate/iso10383-macros/0.3.3/status.svg?style=flat-square
+[deps-link]: https://deps.rs/crate/iso10383-macros/0.3.3
