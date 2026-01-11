@@ -72,3 +72,13 @@ repos:
       - id: test
         args:
           - '--workspace'
+          - '--doc'
+  - repo: local
+    hooks:
+      - id: cargo-nextest
+        name: cargo nextest
+        description: unit test for the project
+        entry: bash -c 'cargo nextest run --workspace --all-features'
+        language: rust
+        files: \.rs$
+        pass_filenames: false
