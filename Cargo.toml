@@ -5,7 +5,7 @@ exclude = [".cache"]
 
 [workspace.dependencies]
 chrono = { version = "0.4.20", default-features = false }
-iso3166-static = { version = "0.3", default-features = false }
+iso3166-static = { version = "0.4.0", default-features = false }
 iso10383-macros = { version = "=0.3.2", path = "./macros" }
 iso10383-parser = { version = "=0.3.2", path = "./parser" }
 iso10383-static = { version = "=0.3.2", path = "./static" }
