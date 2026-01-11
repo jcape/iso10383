@@ -128,19 +128,48 @@ jobs:
             --all-features \
             --no-deps
 
-  test-coverage:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: taiki-e/install-action@cargo-nextest
+      - run: |
+          cargo nextest run \
+            --workspace \
+            --profile ci
+      - uses: codecov/codecov-action@v5
+        with:
+          report_type: test_results
+          files: target/nextest/ci/junit.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: llvm-tools-preview
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: llvm-tools-preview
       - uses: taiki-e/install-action@cargo-llvm-cov
+      - uses: taiki-e/install-action@cargo-nextest
       - name: Run tests with coverage
         run: |
-          cargo llvm-cov \
+          cargo llvm-cov nextest \
+            --no-report \
             --workspace \
             --all-features \
+            --profile ci \
+            --hide-progress-bar
+          cargo +nightly llvm-cov \
+            --no-report \
+            --workspace \
+            --doc
+          cargo llvm-cov report \
+            --doctests \
             --lcov \
             --output-path lcov.info
       - uses: codecov/codecov-action@v5
