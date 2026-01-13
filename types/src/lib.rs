@@ -55,7 +55,7 @@ pub enum Error {
     InvalidCharacter(usize),
 }
 
-/// A MIC reference
+/// A MIC reference.
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd, RefCastCustom)]
 #[allow(non_camel_case_types)]
 #[repr(transparent)]
@@ -65,7 +65,7 @@ impl mic {
     #[ref_cast_custom]
     pub(crate) const fn from_bytes_unchecked(src: &[u8]) -> &Self;
 
-    /// Create a new MIC from the given bytes
+    /// Create a new MIC from the given bytes.
     pub const fn from_bytes(src: &[u8]) -> Result<&Self, Error> {
         if let Err(e) = check_mic(src) {
             Err(e)
@@ -74,7 +74,7 @@ impl mic {
         }
     }
 
-    /// Create a new MIC from the given string
+    /// Create a new MIC from the given string.
     pub const fn from_str(src: &str) -> Result<&Self, Error> {
         let bytes = src.as_bytes();
 
@@ -121,7 +121,7 @@ impl Display for mic {
     }
 }
 
-/// An owned MIC value
+/// An owned MIC value.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, RefCastCustom)]
 #[repr(transparent)]
 pub struct Mic([u8; MIC_SIZE]);
@@ -220,7 +220,7 @@ impl FromStr for Mic {
     }
 }
 
-/// The type of MIC
+/// The type of MIC.
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Kind {
@@ -232,88 +232,88 @@ pub enum Kind {
     Segment,
 }
 
-/// The market category of a MIC
+/// The market category of a MIC.
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Category {
-    /// ATSS - Alternative Trading System
+    /// ATSS - Alternative Trading System.
     #[cfg_attr(feature = "serde", serde(alias = "ATSS"))]
     AlternativeTradingSystem,
 
-    /// APPA - Approved Publication Arrangement
+    /// APPA - Approved Publication Arrangement.
     #[cfg_attr(feature = "serde", serde(alias = "APPA"))]
     ApprovedPublicationArrangement,
 
-    /// ARMS - Approved Reporting Mechanism
+    /// ARMS - Approved Reporting Mechanism.
     #[cfg_attr(feature = "serde", serde(alias = "ARMS"))]
     ApprovedReportingMechanism,
 
-    /// CTPS - Consolidated Tape Provider
+    /// CTPS - Consolidated Tape Provider.
     #[cfg_attr(feature = "serde", serde(alias = "CTPS"))]
     ConsolidatedTapeProvider,
 
-    /// CASP - Crypto Asset Services Provider
+    /// CASP - Crypto Asset Services Provider.
     #[cfg_attr(feature = "serde", serde(alias = "CASP"))]
     CryptoAssetServicesProvider,
 
-    /// DCMS - Designated Contract Market
+    /// DCMS - Designated Contract Market.
     #[cfg_attr(feature = "serde", serde(alias = "DCMS"))]
     DesignatedContractMarket,
 
-    /// IDQS - Inter Dealer Quotation System
+    /// IDQS - Inter Dealer Quotation System.
     #[cfg_attr(feature = "serde", serde(alias = "IDQS"))]
     InterDealerQuotationSystem,
 
-    /// MLTF - Multilateral Trading Facility
+    /// MLTF - Multilateral Trading Facility.
     #[cfg_attr(feature = "serde", serde(alias = "MLTF"))]
     MultilateralTradingFacility,
 
-    /// NSPD - Not Specified
+    /// NSPD - Not Specified.
     #[cfg_attr(feature = "serde", serde(alias = "NSPD"))]
     NotSpecified,
 
-    /// OTFS - Organised Trading Facility
+    /// OTFS - Organised Trading Facility.
     #[cfg_attr(feature = "serde", serde(alias = "OTFS"))]
     OrganisedTradingFacility,
 
-    /// OTHR - ,
+    /// OTHR - Other.
     #[cfg_attr(feature = "serde", serde(alias = "OTHR"))]
     Other,
 
-    /// RMOS - Recognised Market Operator
+    /// RMOS - Recognised Market Operator.
     #[cfg_attr(feature = "serde", serde(alias = "RMOS"))]
     RecognisedMarketOperator,
 
-    /// RMKT - Regulated Market
+    /// RMKT - Regulated Market.
     #[cfg_attr(feature = "serde", serde(alias = "RMKT"))]
     RegulatedMarket,
 
-    /// SEFS - Swap Execution Facility
+    /// SEFS - Swap Execution Facility.
     #[cfg_attr(feature = "serde", serde(alias = "SEFS"))]
     SwapExecutionFacility,
 
-    /// SINT - Systematic Internaliser
+    /// SINT - Systematic Internaliser.
     #[cfg_attr(feature = "serde", serde(alias = "SINT"))]
     SystematicInternaliser,
 
-    /// TRFS - Trade Reporting Facility
+    /// TRFS - Trade Reporting Facility.
     #[cfg_attr(feature = "serde", serde(alias = "TRFS"))]
     TradeReportingFacility,
 }
 
-/// The status of a MIC
+/// The status of a MIC.
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Status {
-    /// The MIC is active
+    /// The MIC is active.
     #[cfg_attr(feature = "serde", serde(alias = "ACTIVE"))]
     Active,
 
-    /// The MIC has been updated
+    /// The MIC has been updated.
     #[cfg_attr(feature = "serde", serde(alias = "UPDATED"))]
     Updated,
 
-    /// The MIC has expired
+    /// The MIC has expired.
     #[cfg_attr(feature = "serde", serde(alias = "EXPIRED"))]
     Expired,
 }
