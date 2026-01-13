@@ -16,15 +16,7 @@ use syn::{
 struct Config {
     xml: PathBuf,
     span: Span,
-}
-
-impl Default for Config {
-    fn default() -> Self {
-        Self {
-            xml: PathBuf::default(),
-            span: Span::call_site(),
-        }
-    }
+    zerocopy: Option<String>,
 }
 
 impl Config {
@@ -56,6 +48,30 @@ impl Config {
         Ok(())
     }
 
+    /// Parse the literal provided as a string or boolean
+    fn parse_zerocopy(&mut self, lit: &Lit) -> Result<()> {
+        if self.zerocopy.is_some() {
+            return Err(Error::new_spanned(lit, "Multiple `zerocopy` parameters."));
+        }
+
+        match lit {
+            Lit::Bool(lit_bool) => {
+                self.zerocopy = lit_bool.value().then_some("zerocopy".to_owned());
+            }
+            Lit::Str(lit_str) => {
+                self.zerocopy = Some(lit_str.value());
+            }
+            val => {
+                return Err(Error::new_spanned(
+                    val,
+                    "`zerocopy` must be bool or the literal feature name to use",
+                ));
+            }
+        }
+
+        Ok(())
+    }
+
     /// Parse a namevalue token pair
     fn parse_namevalue(&mut self, tokens: &MetaNameValue) -> Result<()> {
         let ident = tokens
@@ -71,9 +87,10 @@ impl Config {
 
         match ident.as_str() {
             "xml" => self.parse_xml(lit),
+            "zerocopy" => self.parse_zerocopy(lit),
             other => {
                 let message = format!(
-                    "{other} is not a valid paramter. The only valid parameter is `xml`, which should refer to a file relative to the calling crate's `src` directory."
+                    "{other} is not a valid paramter. The only valid parameters are `xml`, which should refer to a file relative to the calling crate's `src` directory, and `zerocopy`, which should be set to `true` or the zero copy feature name."
                 );
                 Err(Error::new_spanned(ident, message))
             }
@@ -82,7 +99,11 @@ impl Config {
 
     /// Construct a new config from the given comma-separated tokens.
     fn build(args: &Punctuated<Meta, Token![,]>) -> Result<Config> {
-        let mut retval = Config::default();
+        let mut retval = Self {
+            xml: PathBuf::default(),
+            span: Span::call_site(),
+            zerocopy: None,
+        };
 
         for arg in args {
             match arg {
@@ -90,8 +111,9 @@ impl Config {
                     return Err(Error::new_spanned(
                         tokens,
                         concat!(
-                            "The only valid parameter is `xml`, which should refer to a file ",
-                            "relative to the calling crate's `src` directory."
+                            "The only valid parameters are `xml`, which should refer to a file ",
+                            "relative to the calling crate's `src` directory, and `zerocopy`, ",
+                            "which should be set to `true` or the zero copy feature name."
                         ),
                     ));
                 }
@@ -100,7 +122,8 @@ impl Config {
                         tokens,
                         concat!(
                             "The only valid parameter is `xml`, which should refer to a file ",
-                            "relative to the calling crate's `src` directory."
+                            "relative to the calling crate's `src` directory, and `zerocopy`, ",
+                            "which should be set to `true` or the zero copy feature name."
                         ),
                     ));
                 }
@@ -133,7 +156,7 @@ fn generate_error() -> TokenStream {
 }
 
 #[allow(clippy::too_many_lines)]
-fn generate_code(records: &RecordSet) -> TokenStream {
+fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
     let doc = records.doc();
     let ident = records.code_ident();
     let code_bytes = records.code_bytes();
@@ -151,6 +174,22 @@ fn generate_code(records: &RecordSet) -> TokenStream {
     let expiry_date = records.expiry();
     let comments = records.comments();
 
+    let zc_tokens = if let Some(zc_feature) = zerocopy {
+        quote::quote! {
+            #[cfg_attr(
+                feature = #zc_feature,
+                derive(
+                    ::zerocopy::Immutable,
+                    ::zerocopy::IntoBytes,
+                    ::zerocopy::KnownLayout,
+                    ::zerocopy::TryFromBytes
+                )
+            )]
+        }
+    } else {
+        quote::quote! {}
+    };
+
     quote::quote! {
         /// An enumeration containing all currently known MICs.
         ///
@@ -164,6 +203,7 @@ fn generate_code(records: &RecordSet) -> TokenStream {
         /// assert_eq!(mcode, code.as_mic());
         /// ```
         #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+        #zc_tokens
         #[repr(u32)]
         #[non_exhaustive]
         pub enum Code {
@@ -432,7 +472,11 @@ fn generate_data(records: &RecordSet) -> TokenStream {
 }
 
 pub(crate) fn generate(input: TokenStream) -> Result<TokenStream> {
-    let Config { xml, span } = Punctuated::<Meta, Token![,]>::parse_terminated
+    let Config {
+        xml,
+        span,
+        zerocopy,
+    } = Punctuated::<Meta, Token![,]>::parse_terminated
         .parse2(input)
         .and_then(|args| Config::build(&args))?;
 
@@ -457,7 +501,7 @@ pub(crate) fn generate(input: TokenStream) -> Result<TokenStream> {
     }
 
     let mut retval = generate_error();
-    retval.extend(generate_code(&records));
+    retval.extend(generate_code(&records, zerocopy));
     retval.extend(generate_data(&records));
 
     Ok(retval)

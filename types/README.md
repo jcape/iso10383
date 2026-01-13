@@ -13,6 +13,7 @@ If you're looking for stronger validation and smaller storage requirements, you 
 - **`default`**: Enables the `serde` feature.
 - **`serde`**: Enables the serialization and deserialization traits of the code enum and MIC record data.
 - **`alloc`**: Enables the variants of serde serialization and deserialization which require `alloc`. This should be enabled if serde has it's own `alloc` feature enabled.
+- **`zerocopy`**: Enables the derivation of traits from the [`zerocopy`](https://crates.io/crate/zerocopy/), namely [`IntoBytes`](zerocopy::IntoBytes) and [`KnownLayout`](zerocopy::KnownLayout). Notably, this does not include [`TryFromBytes`](zerocopy::TryFromBytes) as it is not possible to provide a custom validity check at this time.
 
 ## Examples
 

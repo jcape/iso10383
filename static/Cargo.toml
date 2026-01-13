@@ -3,7 +3,7 @@ name = "iso10383-static"
 version.workspace = true
 authors.workspace = true
 categories = ["finance", "localization", "no-std", "no-std::no-alloc"]
-description = "Static ISO 10383 Data"
+description = "Static ISO 10383 Market Identifier Code Data"
 documentation = "https://docs.rs/iso10383-static"
 edition.workspace = true
 keywords = ["iso10383", "mic"]
@@ -19,6 +19,7 @@ iso10383-macros.workspace = true
 iso10383-types.workspace = true
 iso17442-types.workspace = true
 serde = { workspace = true, optional = true }
+zerocopy = { workspace = true, optional = true }
 
 [dev-dependencies]
 serde_json.workspace = true
@@ -26,11 +27,12 @@ serde_json.workspace = true
 [features]
 default = ["serde"]
 alloc = [
-    "serde?/alloc",
     "chrono/alloc",
     "iso3166-static/alloc",
     "iso10383-types/alloc",
     "iso17442-types/alloc",
+    "serde?/alloc",
+    "zerocopy?/alloc",
 ]
 serde = [
     "dep:serde",
@@ -39,6 +41,7 @@ serde = [
     "iso10383-types/serde",
     "iso17442-types/serde",
 ]
+zerocopy = ["dep:zerocopy"]
 
 [lints]
 workspace = true

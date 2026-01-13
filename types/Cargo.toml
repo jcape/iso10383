@@ -14,14 +14,16 @@ version.workspace = true
 
 [features]
 default = ["alloc", "serde"]
-alloc = ["serde?/alloc", "iso3166-static/alloc"]
+alloc = ["iso3166-static/alloc", "serde?/alloc", "zerocopy?/alloc"]
 serde = ["dep:serde", "iso3166-static/serde"]
+zerocopy = ["dep:zerocopy"]
 
 [dependencies]
 ref-cast = "1.0"
 iso3166-static.workspace = true
 serde = { workspace = true, features = ["derive"], optional = true }
 thiserror = { version = "2.0", default-features = false }
+zerocopy = { workspace = true, optional = true }
 
 [dev-dependencies]
 serde_json.workspace = true

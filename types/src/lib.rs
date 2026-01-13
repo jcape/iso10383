@@ -123,6 +123,10 @@ impl Display for mic {
 
 /// An owned MIC value.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, RefCastCustom)]
+#[cfg_attr(
+    feature = "zerocopy",
+    derive(zerocopy::Immutable, zerocopy::IntoBytes, zerocopy::KnownLayout)
+)]
 #[repr(transparent)]
 pub struct Mic([u8; MIC_SIZE]);
 
