@@ -164,11 +164,12 @@ fn generate_code(records: &RecordSet) -> TokenStream {
         /// assert_eq!(mcode, code.as_mic());
         /// ```
         #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+        #[repr(u32)]
         #[non_exhaustive]
         pub enum Code {
             #(
                 #[doc = #doc]
-                #ident,
+                #ident = u32::from_be_bytes(*#code_bytes),
             )*
         }
 
