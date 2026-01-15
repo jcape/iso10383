@@ -11,6 +11,8 @@ permissions:
 
 env:
   CARGO_INCREMENTAL: 0
+  RUSTFLAGS: "-D warnings"
+  RUSTDOCFLAGS: "-D warnings"
 
 jobs:
   lint:
