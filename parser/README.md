@@ -11,7 +11,7 @@ As an end-user, this probably isn't the crate you're looking for, you probably w
 [//]: # (badges)
 
 [crate-image]: https://img.shields.io/crates/v/iso10383-parser.svg?style=for-the-badge
-[crate-link]: https://crates.io/crates/iso10383-parser/0.3.3
+[crate-link]: https://crates.io/crates/iso10383-parser/0.4.0
 [docs-image]: https://img.shields.io/docsrs/iso10383-parser?style=for-the-badge
-[docs-link]: https://docs.rs/crate/iso10383-parser/0.3.3/iso10383_parser
-[msrv-image]: https://img.shields.io/crates/msrv/iso10383-parser/0.3.3?style=for-the-badge
+[docs-link]: https://docs.rs/crate/iso10383-parser/0.4.0/iso10383_parser
+[msrv-image]: https://img.shields.io/crates/msrv/iso10383-parser/0.4.0?style=for-the-badge

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.3.3...iso10383-macros-v0.4.0) - 2026-01-15
+
+### Added
+
+- add zerocopy features
+
+### Other
+
+- [**breaking**] code enum is now u32, and assigned to the ascii bytes of the MIC
+- improve readmes, use for-the-badge style
+
 ## [0.3.3](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.3.2...iso10383-macros-v0.3.3) - 2026-01-11
 
 ### Other
