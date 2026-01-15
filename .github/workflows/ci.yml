@@ -111,18 +111,9 @@ jobs:
 
   doc:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        rust:
-          - 1.88.0
-          - beta
-    # Prevent beta warnings from causing CI failure
-    continue-on-error: ${{ matrix.rust == 'beta' }}
     steps:
       - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust }}
+      - uses: dtolnay/rust-toolchain@nightly
       - uses: r7kamura/rust-problem-matchers@v1
       - run: |
           cargo +${{ matrix.rust }} doc \
