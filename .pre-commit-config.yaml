@@ -54,7 +54,7 @@ repos:
         stages: [pre-commit]
         name: cargo fmt
         description: unit test for the project
-        entry: bash -c 'cargo +stable fmt --workspace --'
+        entry: bash -c 'rustup run stable cargo fmt --all --'
         language: rust
         files: \.rs$
         pass_filenames: true
@@ -63,7 +63,7 @@ repos:
         name: cargo clippy fix
         description: clippy fix
         # yamllint disable-line rule:line-length
-        entry: bash -c 'cargo +stable clippy --workspace --all-features --allow-dirty --fix --no-deps'
+        entry: bash -c 'rustup run stable cargo clippy --workspace --all-features --allow-dirty --fix --no-deps'
         language: rust
         files: \.rs$
         pass_filenames: false
@@ -72,7 +72,7 @@ repos:
         name: cargo clippy check
         description: cargo clippy check
         # yamllint disable-line rule:line-length
-        entry: bash -c 'cargo +stable clippy --workspace --all-features --no-deps'
+        entry: bash -c 'rustup run stable cargo clippy --workspace --all-features --no-deps'
         language: rust
         files: \.rs$
         pass_filenames: false
@@ -80,7 +80,8 @@ repos:
         stages: [pre-commit]
         name: cargo nextest
         description: unit test for the project
-        entry: bash -c 'cargo +1.88.0 nextest run --workspace --all-features'
+        # yamllint disable-line rule:line-length
+        entry: bash -c 'rustup run 1.88.0 cargo nextest run --workspace --all-features'
         language: rust
         files: \.rs$
         pass_filenames: false
@@ -88,7 +89,8 @@ repos:
         stages: [pre-commit]
         name: cargo doctest
         description: doctests for the project
-        entry: bash -c 'cargo +1.88.0 test --workspace --all-features --doc'
+        # yamllint disable-line rule:line-length
+        entry: bash -c 'rustup run 1.88.0 cargo test --workspace --all-features --doc'
         language: rust
         files: \.rs$
         pass_filenames: false
