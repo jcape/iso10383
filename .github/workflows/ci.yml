@@ -39,12 +39,13 @@ jobs:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deny:
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         check:
           - advisories
           - bans licenses sources
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: Swatinem/rust-cache@v2
@@ -52,18 +53,17 @@ jobs:
           cache-on-failure: "true"
       - uses: EmbarkStudios/cargo-deny-action@v2
         with:
-          rust-version: 1.88.0
+          rust-version: stable
           command: check ${{ matrix.check }}
 
   clippy:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         rust:
-          - 1.88.0
+          - stable
           - beta
-    # Prevent beta warnings from causing CI failure
-    continue-on-error: ${{ matrix.rust == 'beta' }}
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@master
@@ -80,9 +80,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         rust:
           - 1.88.0
+          - stable
           - beta
         features:
           - none
