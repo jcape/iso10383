@@ -174,6 +174,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
     let legal_id = records.legal_id();
     let category = records.category();
     let acronym = records.acronym();
+    let alpha2 = records.alpha2();
     let status = records.status();
     let creation_date = records.creation();
     let last_update_date = records.last_update();
@@ -314,6 +315,15 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
                 match self {
                     #(
                         Self::#ident => #acronym,
+                    )*
+                }
+            }
+
+            /// The country this code is operated from.
+            pub const fn country(&self) -> ::iso3166_static::Alpha2 {
+                match self {
+                    #(
+                        Self::#ident => ::iso3166_static::Alpha2::#alpha2,
                     )*
                 }
             }
