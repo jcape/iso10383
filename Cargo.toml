@@ -6,10 +6,10 @@ exclude = [".cache"]
 [workspace.dependencies]
 chrono = { version = "0.4.20", default-features = false }
 iso3166-static = { version = "0.4.0", default-features = false }
-iso10383-macros = { version = "=0.4.0", path = "./macros" }
-iso10383-parser = { version = "=0.4.0", path = "./parser" }
-iso10383-static = { version = "=0.4.0", path = "./static" }
-iso10383-types = { version = "=0.4.0", path = "./types" }
+iso10383-macros = { version = "=0.4.1", path = "./macros" }
+iso10383-parser = { version = "=0.4.1", path = "./parser" }
+iso10383-static = { version = "=0.4.1", path = "./static" }
+iso10383-types = { version = "=0.4.1", path = "./types" }
 iso17442-types = { version = "0.3", default-features = false }
 quick-xml = { version = "0.39.0", features = ["serialize"] }
 serde = { version = "1", default-features = false }
@@ -69,7 +69,7 @@ license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/jcape/iso10383"
 rust-version = "1.88.0"
-version = "0.4.0"
+version = "0.4.1"
 
 [profile.release]
 lto = true
