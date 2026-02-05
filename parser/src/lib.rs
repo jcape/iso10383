@@ -1,28 +1,32 @@
-//! ISO 10383 Market Identifier Codes XML Parser
+//! ISO 10383 Market Identifier Codes XML Parser.
 
-#![doc = include_str!("../README.md")]
+#![cfg_attr(doc, doc = include_str!("../README.md"))]
 
+use core::{
+    cell::RefCell,
+    sync::atomic::{AtomicBool, Ordering},
+};
 use iso3166_static::Alpha2;
 use iso10383_types::{Category, Kind, Mic, Status};
 use serde::{Deserialize, Serialize};
-use std::{
-    cell::RefCell,
-    collections::HashMap,
-    sync::atomic::{AtomicBool, Ordering},
-};
+use std::collections::HashMap;
 
 /// A list of MICs which can be parsed from the distributed XML file.
 #[derive(Debug, Default, Deserialize, Serialize)]
 pub struct MicList {
+    /// The list of parsed records.
     #[serde(alias = "ISO10383_MIC")]
     mics: Vec<MicRecord>,
+    /// An index of records by code string.
     #[serde(skip)]
     by_mics: RefCell<HashMap<String, MicRecord>>,
+    /// Whether the index has been populated.
     #[serde(skip)]
     by_mics_loaded: AtomicBool,
 }
 
 impl MicList {
+    /// Populate the index from the initialized data.
     fn update_cache(&self) {
         if self.by_mics_loaded.load(Ordering::Acquire) {
             return;
@@ -36,7 +40,8 @@ impl MicList {
         self.by_mics_loaded.store(true, Ordering::Release);
     }
 
-    /// Get the size of the cache
+    /// Get the size of the cache.
+    #[inline]
     pub fn len(&self) -> usize {
         self.update_cache();
 
@@ -44,6 +49,7 @@ impl MicList {
     }
 
     /// Get whether or not the cache is empty.
+    #[inline]
     pub fn is_empty(&self) -> bool {
         self.update_cache();
 
@@ -51,6 +57,7 @@ impl MicList {
     }
 
     /// Retrieve a slice of the parsed MICs.
+    #[inline]
     pub fn mics(&self) -> &[MicRecord] {
         &self.mics
     }
@@ -59,7 +66,7 @@ impl MicList {
 /// A structure representing a Market Identifier record.
 #[derive(Clone, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct MicRecord {
-    /// The MIC itself
+    /// The MIC itself.
     #[serde(alias = "MIC")]
     pub mic: Mic,
 
@@ -67,15 +74,15 @@ pub struct MicRecord {
     #[serde(alias = "OPERATING_x0020_MIC")]
     pub operating_mic: Mic,
 
-    /// What type of MIC this is
+    /// What type of MIC this is.
     #[serde(alias = "OPRT_x002F_SGMT")]
     pub kind: Kind,
 
-    /// The human-readable name of this MIC
+    /// The human-readable name of this MIC.
     #[serde(alias = "MARKET_x0020_NAME-INSTITUTION_x0020_DESCRIPTION")]
     pub name: String,
 
-    /// The name of the legal entity responsible for this MIC
+    /// The name of the legal entity responsible for this MIC.
     #[serde(alias = "LEGAL_x0020_ENTITY_x0020_NAME")]
     pub legal_entity_name: Option<String>,
 
@@ -86,27 +93,27 @@ pub struct MicRecord {
     #[serde(alias = "LEI")]
     pub legal_entity_id: Option<String>,
 
-    /// The market category this MIC is operating in
+    /// The market category this MIC is operating in.
     #[serde(alias = "MARKET_x0020_CATEGORY_x0020_CODE")]
     pub category: Category,
 
-    /// Known acronym of the market
+    /// Known acronym of the market.
     #[serde(alias = "ACRONYM")]
     pub acronym: Option<String>,
 
-    /// ISO 3166-2 alpha-2 code
+    /// ISO 3166-2 alpha-2 code.
     #[serde(alias = "ISO_x0020_COUNTRY_x0020_CODE_x0020__x0028_ISO_x0020_3166_x0029_")]
     pub country: Alpha2,
 
-    /// The city where this market is located
+    /// The city where this market is located.
     #[serde(alias = "CITY")]
     pub city: String,
 
-    /// The website of this market
+    /// The website of this market.
     #[serde(alias = "WEBSITE")]
     pub website: Option<String>,
 
-    /// The current status of this code
+    /// The current status of this code.
     #[serde(alias = "STATUS")]
     pub status: Status,
 

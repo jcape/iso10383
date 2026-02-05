@@ -3,8 +3,7 @@
 mkdir -p /workspaces/iso10383/.cache/cargo
 ln -sf /usr/local/cargo/bin /workspaces/iso10383/.cache/cargo/
 
-rustup toolchain install stable
-rustup component add --toolchain stable rustfmt
+rustup toolchain install 1.88.0
 rustup toolchain install nightly
 rustup component add --toolchain nightly rustfmt
 

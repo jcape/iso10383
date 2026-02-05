@@ -1,4 +1,4 @@
-//! ISO 10383 Market Identifier Codes Macros
+//! ISO 10383 Market Identifier Codes Macros.
 
 mod xml;
 

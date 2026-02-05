@@ -1,4 +1,4 @@
-//! Serde support for generated types
+//! Serde support for generated types.
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
@@ -11,7 +11,11 @@ use serde::{
     de::{Error as DeError, Visitor},
 };
 
+#[cfg(feature = "alloc")]
+use alloc::{string::String, vec::Vec};
+
 impl Serialize for Code {
+    #[inline]
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
@@ -21,6 +25,7 @@ impl Serialize for Code {
 }
 
 impl<'de> Deserialize<'de> for Code {
+    #[inline]
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
@@ -29,6 +34,7 @@ impl<'de> Deserialize<'de> for Code {
     }
 }
 
+/// A visitor used to parse the code enum.
 struct CodeVisitor;
 
 impl<'de> Visitor<'de> for CodeVisitor {
@@ -39,7 +45,7 @@ impl<'de> Visitor<'de> for CodeVisitor {
     }
 
     #[cfg(feature = "alloc")]
-    fn visit_byte_buf<E>(self, src: alloc::vec::Vec<u8>) -> Result<Self::Value, E>
+    fn visit_byte_buf<E>(self, src: Vec<u8>) -> Result<Self::Value, E>
     where
         E: DeError,
     {
@@ -49,7 +55,7 @@ impl<'de> Visitor<'de> for CodeVisitor {
     }
 
     #[cfg(feature = "alloc")]
-    fn visit_string<E>(self, src: alloc::string::String) -> Result<Self::Value, E>
+    fn visit_string<E>(self, src: String) -> Result<Self::Value, E>
     where
         E: DeError,
     {

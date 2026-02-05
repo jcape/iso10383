@@ -1,37 +1,58 @@
-//! A collection of parsed records
+//! A collection of parsed records.
 
 use chrono::NaiveDate;
-use heck::ToTitleCase;
+use core::fmt::{Debug, Formatter, Result as FmtResult};
+use heck::ToTitleCase as _;
 use iso10383_parser::MicRecord;
 use iso17442_types::lei;
 use proc_macro2::{Span, TokenStream};
-use std::fmt::{Debug, Formatter, Result as FmtResult};
 use syn::{Error, Ident, LitByteStr, Result};
 
 /// A struct-of-arrays collection of parsed record data suitable for use with the
 /// [`quote!`](quote::quote!) macro.
 #[derive(Default)]
 pub(crate) struct RecordSet {
+    /// The array of item documentation strings.
     doc: Vec<String>,
+    /// The array of identifiers for use in a `const` context.
     const_ident: Vec<Ident>,
+    /// The array of MIC-code byte literals.
     code_bytes: Vec<LitByteStr>,
+    /// The array of enum variant identifiers.
     code_ident: Vec<Ident>,
+    /// An array of operating MIC byte literals.
     oper_bytes: Vec<LitByteStr>,
+    /// The array of operating MIC enum variant identifiers.
     oper_ident: Vec<Ident>,
+    /// The array of MIC type enum variant identifiers.
     kind: Vec<Ident>,
+    /// The array of string name.
     name: Vec<String>,
+    /// The array of optional strings for the legal name.
     legal_name: Vec<TokenStream>,
+    /// The array of optional LEI object tokens.
     legal_id: Vec<TokenStream>,
+    /// The array of category variant identifiers.
     category: Vec<Ident>,
+    /// The array of optional string acronyms.
     acronym: Vec<TokenStream>,
+    /// The array of `iso3166_static::Alpha2` variant identifiers.
     alpha2: Vec<Ident>,
+    /// The array of city strings.
     city: Vec<String>,
+    /// The array of optional website strings.
     website: Vec<TokenStream>,
+    /// The array of MIC status enum variant identifiers.
     status: Vec<Ident>,
+    /// The array of `NaiveDate` creation tokens.
     creation: Vec<TokenStream>,
+    /// The array of optional `NaiveDate` last-update tokens.
     last_update: Vec<TokenStream>,
+    /// The array of optional `NaiveDate` last-verfied tokens.
     last_validation: Vec<TokenStream>,
+    /// The array of optional `NaiveDate` expiration tokens.
     expiry: Vec<TokenStream>,
+    /// The array of optional string comment tokens.
     comments: Vec<TokenStream>,
 }
 
@@ -63,7 +84,7 @@ impl RecordSet {
         }
     }
 
-    /// Append the data of a new record to the given recordset
+    /// Append the data of a new record to the given recordset.
     pub(crate) fn push_record(&mut self, record: &MicRecord, span: Span) -> Result<()> {
         let doc = format!("{} - {}", record.mic, record.name);
         let const_ident = quote::format_ident!("{}", cleanup_mic(record.mic.as_str()));
@@ -114,47 +135,47 @@ impl RecordSet {
         Ok(())
     }
 
-    /// Documentation strings
+    /// Documentation strings.
     pub(crate) fn doc(&self) -> &[String] {
         &self.doc
     }
 
-    /// The MIC as an all-caps identifier
+    /// The MIC as an all-caps identifier.
     pub(crate) fn const_ident(&self) -> &[Ident] {
         &self.const_ident
     }
 
-    /// The MIC as bytes
+    /// The MIC as bytes.
     pub(crate) fn code_bytes(&self) -> &[LitByteStr] {
         &self.code_bytes
     }
 
-    /// The MIC as a title-case identifier
+    /// The MIC as a title-case identifier.
     pub(crate) fn code_ident(&self) -> &[Ident] {
         &self.code_ident
     }
 
-    /// The Operating MIC as bytes
+    /// The Operating MIC as bytes.
     pub(crate) fn oper_bytes(&self) -> &[LitByteStr] {
         &self.oper_bytes
     }
 
-    /// The operating MIC as a title-case identifier
+    /// The operating MIC as a title-case identifier.
     pub(crate) fn oper_ident(&self) -> &[Ident] {
         &self.oper_ident
     }
 
-    /// The kind invariant, as an identifier
+    /// The kind invariant, as an identifier.
     pub(crate) fn kind(&self) -> &[Ident] {
         &self.kind
     }
 
-    /// The name of the entity, as a string
+    /// The name of the entity, as a string.
     pub(crate) fn name(&self) -> &[String] {
         &self.name
     }
 
-    /// The name of the entry's legal entity, as tokens for an optional string slice
+    /// The name of the entry's legal entity, as tokens for an optional string slice.
     pub(crate) fn legal_name(&self) -> &[TokenStream] {
         &self.legal_name
     }
@@ -165,22 +186,22 @@ impl RecordSet {
         &self.legal_id
     }
 
-    /// The market category variant of the entry, as an identifier
+    /// The market category variant of the entry, as an identifier.
     pub(crate) fn category(&self) -> &[Ident] {
         &self.category
     }
 
-    /// The acronym of the variant, as tokens for an optional string slice
+    /// The acronym of the variant, as tokens for an optional string slice.
     pub(crate) fn acronym(&self) -> &[TokenStream] {
         &self.acronym
     }
 
-    /// The [`Alpha2`](iso3166_static::Alpha2) enum variant, as an identifier
+    /// The [`Alpha2`](iso3166_static::Alpha2) enum variant, as an identifier.
     pub(crate) fn alpha2(&self) -> &[Ident] {
         &self.alpha2
     }
 
-    /// The city, as a string
+    /// The city, as a string.
     pub(crate) fn city(&self) -> &[String] {
         &self.city
     }
@@ -190,33 +211,39 @@ impl RecordSet {
         &self.website
     }
 
-    /// The
+    /// The status enum variant identifier.
     pub(crate) fn status(&self) -> &[Ident] {
         &self.status
     }
 
+    /// The `NaiveDate` creation date as tokens.
     pub(crate) fn creation(&self) -> &[TokenStream] {
         &self.creation
     }
 
+    /// The `NaiveDate` update time as tokens.
     pub(crate) fn last_update(&self) -> &[TokenStream] {
         &self.last_update
     }
 
+    /// The `Option<NaiveDate>` validation time as tokens.
     pub(crate) fn last_validation(&self) -> &[TokenStream] {
         &self.last_validation
     }
 
+    /// The `Option<NaiveDate>` expiration time as tokens.
     pub(crate) fn expiry(&self) -> &[TokenStream] {
         &self.expiry
     }
 
+    /// The `Option<String>` comments as tokens.
     pub(crate) fn comments(&self) -> &[TokenStream] {
         &self.comments
     }
 }
 
 impl Debug for RecordSet {
+    #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         f.debug_struct("RecordSet")
             .field("doc", &self.doc)
@@ -302,6 +329,7 @@ fn optional_lei(legal_entity_id: Option<&str>, span: Span) -> Result<TokenStream
     }
 }
 
+/// Output the token stream for a required `NaiveDate` assignment.
 fn required_date(date: &str, span: Span) -> Result<TokenStream> {
     let dateval = date.parse::<u32>().map_err(|error| {
         let message = format!("Unable to parse date: {error}");
@@ -328,6 +356,7 @@ fn required_date(date: &str, span: Span) -> Result<TokenStream> {
     })
 }
 
+/// Output the token stream required for an `Option<NaiveDate>`.
 fn optional_date(date: Option<&str>, span: Span) -> Result<TokenStream> {
     if let Some(date) = date
         && !date.trim().is_empty()
