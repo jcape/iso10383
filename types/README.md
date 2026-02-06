@@ -29,7 +29,7 @@ assert_eq!(SRC, mcode.as_str());
 [//]: # (badges)
 
 [crate-image]: https://img.shields.io/crates/v/iso10383-types.svg?style=for-the-badge
-[crate-link]: https://crates.io/crates/iso10383-types/0.4.1
-[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.4.1?style=for-the-badge
-[docs-link]: https://docs.rs/crate/iso10383-types/0.4.1/iso10383_types/
-[msrv-image]: https://img.shields.io/crates/msrv/iso10383-types/0.4.1?style=for-the-badge
+[crate-link]: https://crates.io/crates/iso10383-types/0.4.2
+[docs-image]: https://img.shields.io/docsrs/iso10383-types/0.4.2?style=for-the-badge
+[docs-link]: https://docs.rs/crate/iso10383-types/0.4.2/iso10383_types/
+[msrv-image]: https://img.shields.io/crates/msrv/iso10383-types/0.4.2?style=for-the-badge
