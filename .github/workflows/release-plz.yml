@@ -75,8 +75,11 @@ jobs:
             for pkg in $packages; do
                 crate=$(echo $pkg | sed -e 's/iso10383-//')
                 sed -i -e "s|$pkg/[0-9.]\+|$pkg/$version|g" "$crate/README.md"
+                sed -i -e "s|$pkg/[0-9.]\+|$pkg/$version|g" "README.md"
                 git add "$crate/README.md"
             done
+
+            git add "README.md"
 
             git status
             git commit --amend --no-edit
