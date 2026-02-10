@@ -18,6 +18,7 @@ const TESTS_DIR: &str = "tests";
     nov2025 = {"2025-11-14.xml", 2805},
     dec2025 = {"2025-12-08.xml", 2809},
     jan2026 = {"2026-01-12.xml", 2811},
+    feb2026 = {"2026-02-09.xml", 2817},
 )]
 fn all_historical(file: &str, count: usize) {
     let mut filepath = PathBuf::from(BASE_PATH);
