@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.4.3...iso10383-macros-v0.4.4) - 2026-02-17
+
+### Other
+
+- Pin quick-xml to 0.39.0
+
+## [0.4.3](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.4.2...iso10383-macros-v0.4.3) - 2026-02-05
+
+### Other
+
+- release v0.4.3
+
+## [0.4.2](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.4.1...iso10383-macros-v0.4.2) - 2026-02-07
+
+### Other
+
+- release v0.4.2
+
 ## [0.4.1](https://github.com/jcape/iso10383/compare/iso10383-macros-v0.4.0...iso10383-macros-v0.4.1) - 2026-02-05
 
 ### Added
