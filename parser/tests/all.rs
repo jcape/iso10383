@@ -19,11 +19,10 @@ const TESTS_DIR: &str = "tests";
     dec2025 = {"2025-12-08.xml", 2809},
     jan2026 = {"2026-01-12.xml", 2811},
     feb2026 = {"2026-02-09.xml", 2817},
+    aug2026 = {"2026-08-10.xml", 2875},
 )]
 fn all_historical(file: &str, count: usize) {
-    let mut filepath = PathBuf::from(BASE_PATH);
-    filepath.push(TESTS_DIR);
-    filepath.push(file);
+    let filepath = PathBuf::from(BASE_PATH).join(TESTS_DIR).join(file);
 
     let handle = File::open(&filepath).expect("Could not create XML Reader");
     let reader = BufReader::new(handle);
