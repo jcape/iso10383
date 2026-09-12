@@ -6,11 +6,7 @@ version = 2
 
 [licenses]
 version = 2
-allow = [
-    "Apache-2.0",
-    "MIT",
-    "Unicode-3.0",
-]
+allow = ["Apache-2.0", "MIT", "Unicode-3.0"]
 confidence-threshold = 0.8
 exceptions = []
 
@@ -18,8 +14,7 @@ exceptions = []
 allow = []
 allow-wildcard-paths = true
 deny = [
-    # https://github.com/briansmith/ring/issues/774
-    { name = "ring" },
+  { name = "ring", reason = "https://github.com/briansmith/ring/issues/774" },
 ]
 highlight = "all"
 multiple-versions = "warn"

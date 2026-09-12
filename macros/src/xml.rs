@@ -152,6 +152,7 @@ fn generate_error() -> TokenStream {
         }
 
         impl ::core::fmt::Display for Error {
+            #[inline]
             fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
                 match self {
                     Self::UnknownMic => f.write_str("Unknown MIC"),
@@ -227,6 +228,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// # Errors
             ///
             /// - [`Error::UnknownMic`] when the MIC value is unknown
+            #[inline(never)]
             pub const fn from_mic(value: &::iso10383_types::mic) -> Result<Self, Error> {
                 match value.as_bytes() {
                     #(
@@ -238,6 +240,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// Retrieve the corresponding MIC.
+            #[inline(never)]
             pub const fn as_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
@@ -252,6 +255,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// Retrieve the operating MIC.
+            #[inline(never)]
             pub const fn operating_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
@@ -266,6 +270,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The type of code this represents.
+            #[inline(never)]
             pub const fn kind(&self) -> ::iso10383_types::Kind {
                 match self {
                     #(
@@ -275,6 +280,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The name of the the organization which operates this code.
+            #[inline(never)]
             pub const fn name(&self) -> &'static ::core::primitive::str {
                 match self {
                     #(
@@ -284,6 +290,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The name of the legal entity which operates this code.
+            #[inline(never)]
             pub const fn legal_entity_name(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
@@ -293,6 +300,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The ISO 17442 ID of the entity which operates this code.
+            #[inline(never)]
             pub const fn legal_entity_id(&self) -> Option<&'static ::iso17442_types::lei> {
                 match self {
                     #(
@@ -302,6 +310,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The market category of the code.
+            #[inline(never)]
             pub const fn category(&self) -> ::iso10383_types::Category {
                 match self {
                     #(
@@ -311,6 +320,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The acronym of the entity operating this code.
+            #[inline(never)]
             pub const fn acronym(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
@@ -320,6 +330,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The country this code is operated from.
+            #[inline(never)]
             pub const fn country(&self) -> ::iso3166_static::Alpha2 {
                 match self {
                     #(
@@ -329,6 +340,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The status of the code.
+            #[inline(never)]
             pub const fn status(&self) -> ::iso10383_types::Status {
                 match self {
                     #(
@@ -338,6 +350,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The creation date of this code.
+            #[inline(never)]
             pub const fn creation_date(&self) -> ::chrono::NaiveDate {
                 match self {
                     #(
@@ -347,6 +360,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The last time this code was updated.
+            #[inline(never)]
             pub const fn last_update_date(&self) -> ::chrono::NaiveDate {
                 match self {
                     #(
@@ -356,6 +370,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The date this record was last validated.
+            #[inline(never)]
             pub const fn last_validation_date(&self) -> Option<::chrono::NaiveDate> {
                 match self {
                     #(
@@ -365,6 +380,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The date this code expires (or expired), if any.
+            #[inline(never)]
             pub const fn expiry_date(&self) -> Option<::chrono::NaiveDate> {
                 match self {
                     #(
@@ -374,6 +390,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             }
 
             /// The comments attached to this code, if any.
+            #[inline(never)]
             pub const fn comments(&self) -> Option<&::core::primitive::str> {
                 match self {
                     #(
