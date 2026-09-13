@@ -19,7 +19,7 @@ proc-macro = true
 [dependencies]
 chrono.workspace = true
 heck = "0.5"
-itertools = "0.14"
+itertools = "0.15"
 iso10383-parser.workspace = true
 iso10383-types.workspace = true
 iso17442-types.workspace = true
@@ -27,7 +27,7 @@ proc-macro2 = "1"
 quick-xml.workspace = true
 quote = "1"
 serde = { workspace = true, features = ["std"] }
-syn = { version = "2", features = ["full"] }
+syn = { version = "3", features = ["full"] }
 
 [lints]
 workspace = true
