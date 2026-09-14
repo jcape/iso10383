@@ -164,7 +164,7 @@ jobs:
       - uses: taiki-e/install-action@cargo-nextest
       - name: Run tests with coverage
         run: |
-          cargo +1.88.0 llvm-cov nextest \
+          cargo +nightly llvm-cov nextest \
             --no-report \
             --workspace \
             --all-features \
@@ -174,7 +174,7 @@ jobs:
             --no-report \
             --workspace \
             --doc
-          cargo +1.88.0 llvm-cov report \
+          cargo +nightly llvm-cov report \
             --doctests \
             --lcov \
             --output-path lcov.info
