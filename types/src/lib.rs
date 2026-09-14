@@ -1,6 +1,6 @@
-//! ISO 10383 Types
+//! ISO 10383 Types.
 
-#![doc = include_str!("../README.md")]
+#![cfg_attr(doc, doc = include_str!("../README.md"))]
 #![no_std]
 
 #[cfg(feature = "alloc")]
@@ -24,8 +24,10 @@ use thiserror::Error as ThisError;
 #[cfg(feature = "serde")]
 use ::serde::{Deserialize, Serialize};
 
+/// The length of a MIC code, in bytes.
 const MIC_SIZE: usize = 4;
 
+/// Validate a byte slice contains a proper MIC code.
 const fn check_mic(bytes: &[u8]) -> Result<(), Error> {
     if bytes.len() != MIC_SIZE {
         return Err(Error::InvalidLength(bytes.len(), MIC_SIZE));
@@ -43,7 +45,7 @@ const fn check_mic(bytes: &[u8]) -> Result<(), Error> {
     Ok(())
 }
 
-/// An enumeration of errors when validating a MIC
+/// An enumeration of errors when validating a MIC.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, ThisError)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Error {
@@ -55,17 +57,23 @@ pub enum Error {
     InvalidCharacter(usize),
 }
 
-/// A MIC reference.
+/// A MIC borrow.
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd, RefCastCustom)]
-#[allow(non_camel_case_types)]
+#[expect(non_camel_case_types)]
 #[repr(transparent)]
 pub struct mic([u8]);
 
 impl mic {
+    /// Directly cast a byte slice to a type mic borrow.
     #[ref_cast_custom]
     pub(crate) const fn from_bytes_unchecked(src: &[u8]) -> &Self;
 
     /// Create a new MIC from the given bytes.
+    ///
+    /// # Errors
+    ///
+    /// If the bytes slice does not contain an well-formed MIC of the correct length.
+    #[inline]
     pub const fn from_bytes(src: &[u8]) -> Result<&Self, Error> {
         if let Err(e) = check_mic(src) {
             Err(e)
@@ -75,6 +83,11 @@ impl mic {
     }
 
     /// Create a new MIC from the given string.
+    ///
+    /// # Errors
+    ///
+    /// If the give string slice does not contain a valid MIC code.
+    #[inline]
     pub const fn from_str(src: &str) -> Result<&Self, Error> {
         let bytes = src.as_bytes();
 
@@ -86,36 +99,45 @@ impl mic {
     }
 
     /// Borrow this MIC as a byte slice.
+    #[inline]
+    #[must_use]
     pub const fn as_bytes(&self) -> &[u8] {
         &self.0
     }
 
     /// Borrow this MIC as a string slice.
-    #[allow(unsafe_code)]
+    #[expect(unsafe_code)]
+    #[inline]
+    #[must_use]
     pub const fn as_str(&self) -> &str {
         // SAFETY: a mic slice is validated before construction
         unsafe { str::from_utf8_unchecked(&self.0) }
     }
 
     /// Get an owned copy of this MIC.
+    #[inline]
+    #[must_use]
     pub const fn to_mic(&self) -> Mic {
         Mic::from_bytes_unchecked(&self.0)
     }
 }
 
 impl AsRef<[u8]> for mic {
+    #[inline]
     fn as_ref(&self) -> &[u8] {
         self.as_bytes()
     }
 }
 
 impl AsRef<str> for mic {
+    #[inline]
     fn as_ref(&self) -> &str {
         self.as_str()
     }
 }
 
 impl Display for mic {
+    #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         write!(f, "{}", str::from_utf8(&self.0).map_err(|_e| FmtError)?)
     }
@@ -131,10 +153,12 @@ impl Display for mic {
 pub struct Mic([u8; MIC_SIZE]);
 
 impl Mic {
+    /// Create a new instance from an unchecked array of bytes.
     pub(crate) const fn from_byte_array_unchecked(bytes: [u8; MIC_SIZE]) -> Self {
         Self(bytes)
     }
 
+    /// Create a new instance from a byte slice.
     pub(crate) const fn from_bytes_unchecked(src: &[u8]) -> Self {
         let mut bytes = [0u8; MIC_SIZE];
         let (value, _reject) = src.split_at(MIC_SIZE);
@@ -143,6 +167,11 @@ impl Mic {
     }
 
     /// Create a new MIC by taking ownership of a byte array.
+    ///
+    /// # Errors
+    ///
+    /// If the given byte array does not contain a well-formed MIC.
+    #[inline]
     pub const fn from_byte_array(bytes: [u8; MIC_SIZE]) -> Result<Self, Error> {
         if let Err(e) = check_mic(&bytes) {
             Err(e)
@@ -152,6 +181,11 @@ impl Mic {
     }
 
     /// Create a new owned MIC from the given byte slice.
+    ///
+    /// # Errors
+    ///
+    /// If the given byte slice does not contain a well-formed MIC.
+    #[inline]
     pub const fn from_bytes(src: &[u8]) -> Result<Self, Error> {
         if let Err(e) = check_mic(src) {
             Err(e)
@@ -161,17 +195,26 @@ impl Mic {
     }
 
     /// Create a new owned MIC from the given string slice.
+    ///
+    /// # Errors
+    ///
+    /// If the given string slice does not contain a well-formed MIC.
+    #[inline]
     pub const fn from_str_slice(s: &str) -> Result<Self, Error> {
         Self::from_bytes(s.as_bytes())
     }
 
     /// Borrow this MIC as a byte slice.
-    pub const fn as_bytes(&self) -> &[u8] {
+    #[inline]
+    #[must_use]
+    pub const fn as_byte_slice(&self) -> &[u8] {
         &self.0
     }
 
     /// Borrow this MIC as a string slice.
-    #[allow(unsafe_code)]
+    #[expect(unsafe_code)]
+    #[inline]
+    #[must_use]
     pub const fn as_str(&self) -> &str {
         // SAFETY: We validate the internal byte array contains only ASCII digits and uppercase
         // characters on construction.
@@ -179,18 +222,22 @@ impl Mic {
     }
 
     /// Borrow this MIC as a MIC slice.
+    #[inline]
+    #[must_use]
     pub const fn as_mic(&self) -> &mic {
         mic::from_bytes_unchecked(&self.0)
     }
 }
 
 impl AsRef<[u8]> for Mic {
+    #[inline]
     fn as_ref(&self) -> &[u8] {
-        self.as_bytes()
+        self.as_byte_slice()
     }
 }
 
 impl AsRef<str> for Mic {
+    #[inline]
     fn as_ref(&self) -> &str {
         self.as_str()
     }
@@ -199,18 +246,21 @@ impl AsRef<str> for Mic {
 impl Deref for Mic {
     type Target = mic;
 
+    #[inline]
     fn deref(&self) -> &Self::Target {
         mic::from_bytes_unchecked(&self.0)
     }
 }
 
 impl Borrow<mic> for Mic {
+    #[inline]
     fn borrow(&self) -> &mic {
         mic::from_bytes_unchecked(&self.0)
     }
 }
 
 impl Display for Mic {
+    #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         write!(f, "{}", str::from_utf8(&self.0).map_err(|_e| FmtError)?)
     }
@@ -219,6 +269,7 @@ impl Display for Mic {
 impl FromStr for Mic {
     type Err = Error;
 
+    #[inline]
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::from_str_slice(s)
     }
@@ -228,10 +279,10 @@ impl FromStr for Mic {
 #[derive(Copy, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Kind {
-    /// A top-level owner/operator organization
+    /// A top-level owner/operator organization.
     #[cfg_attr(feature = "serde", serde(alias = "OPRT"))]
     Operating,
-    /// A market segment MIC subsidiary of an owner/operator MIC
+    /// A market segment MIC subsidiary of an owner/operator MIC.
     #[cfg_attr(feature = "serde", serde(alias = "SGMT"))]
     Segment,
 }

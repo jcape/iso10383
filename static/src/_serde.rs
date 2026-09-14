@@ -40,65 +40,65 @@ struct CodeVisitor;
 impl<'de> Visitor<'de> for CodeVisitor {
     type Value = Code;
 
-    fn expecting(&self, f: &mut Formatter<'_>) -> FmtResult {
-        f.write_str("A 4-ascii-character MIC code")
+    fn expecting(&self, formatter: &mut Formatter<'_>) -> FmtResult {
+        formatter.write_str("A 4-ascii-character MIC code")
     }
 
     #[cfg(feature = "alloc")]
-    fn visit_byte_buf<E>(self, src: Vec<u8>) -> Result<Self::Value, E>
+    fn visit_byte_buf<E>(self, v: Vec<u8>) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_bytes(&src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        let value = mic::from_bytes(&v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed bytes"))?;
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 
     #[cfg(feature = "alloc")]
-    fn visit_string<E>(self, src: String) -> Result<Self::Value, E>
+    fn visit_string<E>(self, v: String) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_str(&src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        let value = mic::from_str(&v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed bytes"))?;
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 
-    fn visit_str<E>(self, src: &str) -> Result<Self::Value, E>
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_str(src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        let value = mic::from_str(v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed bytes"))?;
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 
-    fn visit_bytes<E>(self, src: &[u8]) -> Result<Self::Value, E>
+    fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_bytes(src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        let value = mic::from_bytes(v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed bytes"))?;
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 
-    fn visit_borrowed_bytes<E>(self, src: &'de [u8]) -> Result<Self::Value, E>
+    fn visit_borrowed_bytes<E>(self, v: &'de [u8]) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_bytes(src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed bytes"))?;
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        let value = mic::from_bytes(v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed bytes"))?;
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 
-    fn visit_borrowed_str<E>(self, src: &'de str) -> Result<Self::Value, E>
+    fn visit_borrowed_str<E>(self, v: &'de str) -> Result<Self::Value, E>
     where
         E: DeError,
     {
-        let value = mic::from_str(src)
-            .map_err(|_| DeError::custom("Could not parse &mic from borrowed str"))?;
+        let value = mic::from_str(v)
+            .map_err(|_error| DeError::custom("Could not parse &mic from borrowed str"))?;
 
-        Code::from_mic(value).map_err(|_| DeError::custom("Deserialized value is not valid."))
+        Code::from_mic(value).map_err(|_error| DeError::custom("Deserialized value is not valid."))
     }
 }
 

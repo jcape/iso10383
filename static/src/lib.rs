@@ -1,6 +1,6 @@
-//! Static ISO 10383 Data
+//! Static ISO 10383 Data.
 
-#![doc = include_str!("../README.md")]
+#![cfg_attr(doc, doc = include_str!("../README.md"))]
 #![no_std]
 
 #[cfg(feature = "serde")]

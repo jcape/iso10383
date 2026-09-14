@@ -1,4 +1,4 @@
-//! Serde Implementations
+//! Serde Implementations.
 
 use crate::{Error, Mic, mic};
 #[cfg(feature = "alloc")]
@@ -10,23 +10,26 @@ use serde::{
 };
 
 impl Serialize for mic {
+    #[inline]
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(self.as_str())
     }
 }
 
 impl Serialize for Mic {
+    #[inline]
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(self.as_str())
     }
 }
 
+/// A deserialization visitor for MIC references.
 struct MicVisitor;
 
 impl<'v> Visitor<'v> for MicVisitor {
     type Value = &'v mic;
 
-    fn expecting(&self, formatter: &mut Formatter) -> FmtResult {
+    fn expecting(&self, formatter: &mut Formatter<'_>) -> FmtResult {
         formatter.write_str("a 4-character string or byte-string value")
     }
 
@@ -47,6 +50,7 @@ impl<'v> Visitor<'v> for MicVisitor {
 }
 
 impl<'de> Deserialize<'de> for &'de mic {
+    #[inline]
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
@@ -55,12 +59,13 @@ impl<'de> Deserialize<'de> for &'de mic {
     }
 }
 
+/// A deserialization visitor for an owned MIC.
 struct OwnedMicVisitor;
 
 impl<'v> Visitor<'v> for OwnedMicVisitor {
     type Value = Mic;
 
-    fn expecting(&self, formatter: &mut Formatter) -> FmtResult {
+    fn expecting(&self, formatter: &mut Formatter<'_>) -> FmtResult {
         formatter.write_str("a 4-character string or byte-string value")
     }
 
@@ -99,6 +104,7 @@ impl<'v> Visitor<'v> for OwnedMicVisitor {
 }
 
 impl<'de> Deserialize<'de> for Mic {
+    #[inline]
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         deserializer.deserialize_str(OwnedMicVisitor)
     }

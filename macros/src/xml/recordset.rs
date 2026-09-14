@@ -58,6 +58,7 @@ pub(crate) struct RecordSet {
 
 impl RecordSet {
     /// Create a new record set with the given capacity.
+    #[expect(clippy::single_call_fn, reason = "Clean code")]
     pub(crate) fn with_capacity(capacity: usize) -> Self {
         Self {
             doc: Vec::with_capacity(capacity),
@@ -88,10 +89,10 @@ impl RecordSet {
     pub(crate) fn push_record(&mut self, record: &MicRecord, span: Span) -> Result<()> {
         let doc = format!("{} - {}", record.mic, record.name);
         let const_ident = quote::format_ident!("{}", cleanup_mic(record.mic.as_str()));
-        let code_bytes = LitByteStr::new(record.mic.as_bytes(), span);
+        let code_bytes = LitByteStr::new(record.mic.as_byte_slice(), span);
         let code_ident =
             quote::format_ident!("{}", cleanup_mic(&record.mic.as_str().to_title_case()));
-        let oper_bytes = LitByteStr::new(record.operating_mic.as_bytes(), span);
+        let oper_bytes = LitByteStr::new(record.operating_mic.as_byte_slice(), span);
         let oper_ident = quote::format_ident!(
             "{}",
             cleanup_mic(&record.operating_mic.as_str().to_title_case())
@@ -274,11 +275,7 @@ impl Debug for RecordSet {
 /// Prefix a MIC with an underscore if the first character is an ASCII digit.
 fn cleanup_mic(value: &str) -> String {
     let mut retval = value.to_owned();
-    if retval
-        .chars()
-        .next()
-        .is_some_and(|ref ch| ch.is_ascii_digit())
-    {
+    if retval.chars().next().is_some_and(|ch| ch.is_ascii_digit()) {
         retval.insert(0, '_');
     }
 
@@ -302,6 +299,7 @@ fn optional_str(src: Option<&str>) -> TokenStream {
 
 /// Create a token stream necessary to render an optional [`&lei`](iso17442_types::lei) from the
 /// optional [`&str`](core::primitive::str).
+#[expect(clippy::single_call_fn, reason = "Clean code")]
 fn optional_lei(legal_entity_id: Option<&str>, span: Span) -> Result<TokenStream> {
     if let Some(le_id) = legal_entity_id
         && !le_id.trim().is_empty()
