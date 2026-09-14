@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/jcape/iso10383/compare/iso10383-static-v0.4.5...iso10383-static-v0.5.0) - 2026-09-14
+
+### Other
+
+- *(lint)* stronger clippy
+- *(ci)* fix clippy and doc build issues
+- august 2026 release and some inline decorations
+
 ## [0.4.5](https://github.com/jcape/iso10383/compare/iso10383-static-v0.4.3...iso10383-static-v0.4.5) - 2026-02-17
 
 ### Other
