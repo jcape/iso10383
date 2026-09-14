@@ -5,49 +5,75 @@ exclude = [".cache"]
 
 [workspace.dependencies]
 chrono = { version = "0.4.20", default-features = false }
-iso3166-static = { version = "0.4.0", default-features = false }
+iso3166-static = { version = "0.4.2", default-features = false }
 iso10383-macros = { version = "=0.4.5", path = "./macros" }
 iso10383-parser = { version = "=0.4.5", path = "./parser" }
-iso10383-static = { version = "=0.4.5", path = "./static" }
 iso10383-types = { version = "=0.4.5", path = "./types" }
-iso17442-types = { version = "0.3", default-features = false }
-quick-xml = { version = "=0.42.0", features = ["serialize"] }
-serde = { version = "1", default-features = false }
+iso17442-types = { version = "0.3.4", default-features = false }
+quick-xml = { version = "0.42.0", features = ["serialize"] }
+serde = { version = "1.0.229", default-features = false }
 serde_json = "1"
 zerocopy = { version = "0.8.21", default-features = false, features = [
   "derive",
 ] }
 
 [workspace.lints.clippy]
-cargo = "deny"
-complexity = "deny"
-pedantic = "deny"
-perf = "deny"
-style = "deny"
 absolute_paths = "deny"
-alloc_instead_of_core = "deny"
 allow_attributes = "deny"
 almost_complete_range = "deny"
+clone_on_ref_ptr = "deny"
+complexity = "deny"
+correctness = "deny"
+dbg_macro = "deny"
+doc_include_without_cfg = "deny"
+doc_link_code = "deny"
 doc_paragraphs_missing_punctuation = "deny"
+empty_enum_variants_with_brackets = "deny"
+field_scoped_visibility_modifiers = "deny"
+float_arithmetic = "deny"
+float_cmp_const = "deny"
+get_unwrap = "deny"
 if_then_some_else_none = "deny"
+impl_trait_in_params = "deny"
 infinite_loop = "deny"
 let_underscore_must_use = "deny"
+map_err_ignore = "deny"
 missing_docs_in_private_items = "deny"
 missing_inline_in_public_items = "deny"
+missing_safety_doc = "deny"
+mod_module_files = "deny"
+module_name_repetitions = "deny"
+panic_in_result_fn = "deny"
 pathbuf_init_then_push = "deny"
+pedantic = "deny"
+perf = "deny"
+precedence_bits = "deny"
 print_stderr = "deny"
 print_stdout = "deny"
+rc_buffer = "deny"
+rc_mutex = "deny"
 redundant_test_prefix = "deny"
 redundant_type_annotations = "deny"
-std_instead_of_alloc = "deny"
-std_instead_of_core = "deny"
+ref_patterns = "deny"
+renamed_function_params = "deny"
+same_name_method = "deny"
+shadow_unrelated = "deny"
+single_call_fn = "deny"
 str_to_string = "deny"
+string_lit_chars_any = "deny"
+style = "deny"
+suspicious = "deny"
+tests_outside_test_module = "deny"
 todo = "deny"
+try_err = "deny"
 undocumented_unsafe_blocks = "deny"
 unimplemented = "deny"
+unnecessary_safety_comment = "deny"
+unnecessary_safety_doc = "deny"
 unneeded_field_pattern = "deny"
-unused_trait_names = "deny"
+unused_result_ok = "deny"
 unwrap_used = "deny"
+verbose_file_reads = "deny"
 
 [workspace.lints.rust]
 missing_debug_implementations = "deny"
@@ -64,9 +90,7 @@ tag-name = "v{{version}}"
 [workspace.package]
 authors = ["James Cape <jamescape777@gmail.com>"]
 edition = "2024"
-homepage = "https://github.com/jcape/iso10383"
 license = "Apache-2.0"
-readme = "README.md"
 repository = "https://github.com/jcape/iso10383"
 rust-version = "1.88.0"
 version = "0.4.5"

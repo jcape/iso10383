@@ -17,7 +17,6 @@ deny = [
   { name = "ring", reason = "https://github.com/briansmith/ring/issues/774" },
 ]
 highlight = "all"
-multiple-versions = "warn"
 skip = []
 skip-tree = []
 # Lint level for when a crate version requirement is `*`
