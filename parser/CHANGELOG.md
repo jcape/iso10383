@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/jcape/iso10383/compare/iso10383-parser-v0.5.0...iso10383-parser-v0.5.1) - 2026-09-15
+
+### Other
+
+- september 2026 updates
+
 ## [0.5.0](https://github.com/jcape/iso10383/compare/iso10383-parser-v0.4.5...iso10383-parser-v0.5.0) - 2026-09-14
 
 ### Other
