@@ -243,7 +243,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// Retrieve the corresponding MIC.
             #[inline(never)]
-            pub const fn as_mic(&self) -> &'static ::iso10383_types::mic {
+            #[must_use]
+            pub fn as_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
                         Self::#ident => {
@@ -258,7 +259,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// Retrieve the operating MIC.
             #[inline(never)]
-            pub const fn operating_mic(&self) -> &'static ::iso10383_types::mic {
+            #[must_use]
+            pub fn operating_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
                         Self::#ident => {
@@ -273,7 +275,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The type of code this represents.
             #[inline(never)]
-            pub const fn kind(&self) -> ::iso10383_types::Kind {
+            #[must_use]
+            pub fn kind(&self) -> ::iso10383_types::Kind {
                 match self {
                     #(
                         Self::#ident => ::iso10383_types::Kind::#kind,
@@ -283,7 +286,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The name of the the organization which operates this code.
             #[inline(never)]
-            pub const fn name(&self) -> &'static ::core::primitive::str {
+            #[must_use]
+            pub fn name(&self) -> &'static ::core::primitive::str {
                 match self {
                     #(
                         Self::#ident => #name,
@@ -293,7 +297,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The name of the legal entity which operates this code.
             #[inline(never)]
-            pub const fn legal_entity_name(&self) -> Option<&'static ::core::primitive::str> {
+            #[must_use]
+            pub fn legal_entity_name(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
                         Self::#ident => #legal_name,
@@ -303,7 +308,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The ISO 17442 ID of the entity which operates this code.
             #[inline(never)]
-            pub const fn legal_entity_id(&self) -> Option<&'static ::iso17442_types::lei> {
+            #[must_use]
+            pub fn legal_entity_id(&self) -> Option<&'static ::iso17442_types::lei> {
                 match self {
                     #(
                         Self::#ident => #legal_id,
@@ -313,7 +319,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The market category of the code.
             #[inline(never)]
-            pub const fn category(&self) -> ::iso10383_types::Category {
+            #[must_use]
+            pub fn category(&self) -> ::iso10383_types::Category {
                 match self {
                     #(
                         Self::#ident => ::iso10383_types::Category::#category,
@@ -323,7 +330,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The acronym of the entity operating this code.
             #[inline(never)]
-            pub const fn acronym(&self) -> Option<&'static ::core::primitive::str> {
+            #[must_use]
+            pub fn acronym(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
                         Self::#ident => #acronym,
@@ -333,7 +341,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The country this code is operated from.
             #[inline(never)]
-            pub const fn country(&self) -> ::iso3166_static::Alpha2 {
+            #[must_use]
+            pub fn country(&self) -> ::iso3166_static::Alpha2 {
                 match self {
                     #(
                         Self::#ident => ::iso3166_static::Alpha2::#alpha2,
@@ -343,7 +352,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The status of the code.
             #[inline(never)]
-            pub const fn status(&self) -> ::iso10383_types::Status {
+            #[must_use]
+            pub fn status(&self) -> ::iso10383_types::Status {
                 match self {
                     #(
                         Self::#ident => ::iso10383_types::Status::#status,
@@ -353,7 +363,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The creation date of this code.
             #[inline(never)]
-            pub const fn creation_date(&self) -> ::jiff::civil::Date {
+            #[must_use]
+            pub fn creation_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
                         Self::#ident => #creation_date,
@@ -363,7 +374,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The last time this code was updated.
             #[inline(never)]
-            pub const fn last_update_date(&self) -> ::jiff::civil::Date {
+            #[must_use]
+            pub fn last_update_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
                         Self::#ident => #last_update_date,
@@ -373,7 +385,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The date this record was last validated.
             #[inline(never)]
-            pub const fn last_validation_date(&self) -> Option<::jiff::civil::Date> {
+            #[must_use]
+            pub fn last_validation_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
                         Self::#ident => #last_validation_date,
@@ -383,7 +396,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The date this code expires (or expired), if any.
             #[inline(never)]
-            pub const fn expiry_date(&self) -> Option<::jiff::civil::Date> {
+            #[must_use]
+            pub fn expiry_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
                         Self::#ident => #expiry_date,
@@ -393,7 +407,8 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The comments attached to this code, if any.
             #[inline(never)]
-            pub const fn comments(&self) -> Option<&::core::primitive::str> {
+            #[must_use]
+            pub fn comments(&self) -> Option<&::core::primitive::str> {
                 match self {
                     #(
                         Self::#ident => #comments,

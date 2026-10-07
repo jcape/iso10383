@@ -51,7 +51,7 @@ const fn check_mic(bytes: &[u8]) -> Result<(), Error> {
 pub enum Error {
     /// Invalid length.
     InvalidLength(usize, usize),
-    /// Invalid character at position {0}.
+    /// Invalid character.
     InvalidCharacter(usize),
 }
 
