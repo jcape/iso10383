@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/jcape/iso10383/compare/iso10383-static-v0.5.0...iso10383-static-v0.6.0) - 2026-10-07
+
+### Fixed
+
+- [**breaking**] replace `chrono` with `jiff`
+
+### Other
+
+- fix typo in paragraph, illustrate constant creation in example
+- fix docs.rs badge links
+- add taplo configuration
+- september 2026 updates
+
 ## [0.5.0](https://github.com/jcape/iso10383/compare/iso10383-static-v0.4.5...iso10383-static-v0.5.0) - 2026-09-14
 
 ### Other
