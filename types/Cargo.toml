@@ -21,7 +21,6 @@ zerocopy = ["dep:zerocopy"]
 ref-cast = "1.0"
 iso3166-static.workspace = true
 serde = { workspace = true, features = ["derive"], optional = true }
-thiserror = { version = "2.0", default-features = false }
 zerocopy = { workspace = true, optional = true }
 
 [dev-dependencies]

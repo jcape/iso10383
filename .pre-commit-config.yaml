@@ -94,3 +94,12 @@ repos:
         language: rust
         files: \.rs$
         pass_filenames: false
+      - id: cargo-nono-types
+        stages: [pre-commit]
+        name: cargo nono (types)
+        description: ensure the types crate is no_std compatible
+        # yamllint disable-line rule:line-length
+        entry: cargo nono check --package iso10383-types
+        language: system
+        files: (\.rs|Cargo\.(toml|lock))$
+        pass_filenames: false

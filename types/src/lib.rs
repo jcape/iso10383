@@ -14,12 +14,12 @@ mod serde_;
 
 use core::{
     borrow::Borrow,
+    error::Error as CoreError,
     fmt::{Display, Error as FmtError, Formatter, Result as FmtResult},
     ops::Deref,
     str::FromStr,
 };
 use ref_cast::{RefCastCustom, ref_cast_custom};
-use thiserror::Error as ThisError;
 
 #[cfg(feature = "serde")]
 use ::serde::{Deserialize, Serialize};
@@ -46,16 +46,28 @@ const fn check_mic(bytes: &[u8]) -> Result<(), Error> {
 }
 
 /// An enumeration of errors when validating a MIC.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, ThisError)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Error {
     /// Invalid length.
-    #[error("Invalid length.")]
     InvalidLength(usize, usize),
     /// Invalid character at position {0}.
-    #[error("Invalid character at position {0}.")]
     InvalidCharacter(usize),
 }
+
+impl Display for Error {
+    #[inline]
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        match *self {
+            Self::InvalidLength(actual, expected) => {
+                write!(f, "Invalid length, expected {expected}, received {actual}.")
+            }
+            Self::InvalidCharacter(pos) => write!(f, "Invalid character at position {pos}."),
+        }
+    }
+}
+
+impl CoreError for Error {}
 
 /// A MIC borrow.
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd, RefCastCustom)]
