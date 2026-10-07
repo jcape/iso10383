@@ -9,7 +9,7 @@ cargo binstall -q -y --force --locked prek
 cargo binstall -q -y --force --locked action-validator
 cargo binstall -q -y --force --locked cargo-deny
 cargo binstall -q -y --force --locked cargo-nextest
-cargo binstall -q -y --force --locked cargo-nono
+cargo binstall -q -y --force --locked cargo-no-std-check
 cargo binstall -q -y --force --locked taplo-cli
 
 pushd /workspaces/iso10383 >/dev/null

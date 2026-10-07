@@ -94,11 +94,19 @@ repos:
         language: rust
         files: \.rs$
         pass_filenames: false
-      - id: cargo-nono-types
+      - id: cargo-no-std-check-types
         stages: [pre-commit]
-        name: cargo nono (types)
+        name: cargo no-std-check (types)
         description: ensure the types crate is no_std compatible
-        entry: cargo nono check --package iso10383-types
+        entry: cargo no-std-check --manifest-path types/Cargo.toml
+        language: system
+        files: (\.rs|Cargo\.(toml|lock))$
+        pass_filenames: false
+      - id: cargo-no-std-check-static
+        stages: [pre-commit]
+        name: cargo no-std-check (static)
+        description: ensure the static crate is no_std compatible
+        entry: cargo no-std-check --manifest-path static/Cargo.toml
         language: system
         files: (\.rs|Cargo\.(toml|lock))$
         pass_filenames: false
