@@ -4,9 +4,9 @@ members = ["macros", "parser", "static", "types"]
 resolver = "2"
 
 [workspace.dependencies]
-iso10383-macros = { path = "./macros", version = "=0.5.0" }
-iso10383-parser = { path = "./parser", version = "=0.5.0" }
-iso10383-types = { path = "./types", version = "=0.5.0" }
+iso10383-macros = { path = "./macros", version = "=0.6.0" }
+iso10383-parser = { path = "./parser", version = "=0.6.0" }
+iso10383-types = { path = "./types", version = "=0.6.0" }
 iso17442-types = { default-features = false, version = "0.4.0" }
 iso3166-static = { default-features = false, version = "0.4.2" }
 jiff = { default-features = false, version = "0.2.38" }
@@ -93,7 +93,7 @@ edition = "2024"
 license = "Apache-2.0"
 repository = "https://github.com/jcape/iso10383"
 rust-version = "1.88.0"
-version = "0.5.0"
+version = "0.6.0"
 
 [profile.release]
 lto = true
