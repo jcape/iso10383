@@ -213,7 +213,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
         /// assert_eq!(Code::Xnas, code);
         /// assert_eq!(mcode, code.as_mic());
         /// ```
-        #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+        #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
         #zc_tokens
         #[repr(u32)]
         #[non_exhaustive]
@@ -414,6 +414,20 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
                         Self::#ident => #comments,
                     )*
                 }
+            }
+        }
+
+        impl Ord for Code {
+            #[inline]
+            fn cmp(&self, other: &Self) -> ::core::cmp::Ordering {
+                (&(*self as u32)).cmp(&(*other as u32))
+            }
+        }
+
+        impl PartialOrd for Code {
+            #[inline]
+            fn partial_cmp(&self, other: &Self) -> Option<::core::cmp::Ordering> {
+                Some(self.cmp(other))
             }
         }
     }
