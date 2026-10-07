@@ -3,9 +3,7 @@
 mkdir -p /workspaces/iso10383/.cache/cargo
 ln -sf /usr/local/cargo/bin /workspaces/iso10383/.cache/cargo/
 
-rustup toolchain install 1.88.0
-rustup toolchain install nightly
-rustup component add --toolchain nightly rustfmt
+rustup toolchain install nightly --profile default
 
 cargo binstall -q -y --force prek
 cargo binstall -q -y --force action-validator
