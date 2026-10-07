@@ -1,5 +1,4 @@
 [package]
-name = "iso10383-types"
 authors.workspace = true
 categories = ["finance", "localization", "no-std", "no-std::no-alloc"]
 description = "ISO 10383 Types"
@@ -7,21 +6,22 @@ documentation = "https://docs.rs/iso10383-types"
 edition.workspace = true
 keywords = ["iso10383", "mic"]
 license.workspace = true
+name = "iso10383-types"
 repository.workspace = true
 rust-version.workspace = true
 version.workspace = true
 
 [features]
-default = ["alloc", "serde"]
 alloc = ["iso3166-static/alloc", "serde?/alloc", "zerocopy?/alloc"]
+default = ["alloc", "serde"]
 serde = ["dep:serde", "iso3166-static/serde"]
 zerocopy = ["dep:zerocopy"]
 
 [dependencies]
-ref-cast = "1.0"
 iso3166-static.workspace = true
-serde = { workspace = true, features = ["derive"], optional = true }
-zerocopy = { workspace = true, optional = true }
+ref-cast = "1.0"
+serde = { features = ["derive"], optional = true, workspace = true }
+zerocopy = { optional = true, workspace = true }
 
 [dev-dependencies]
 serde_json.workspace = true

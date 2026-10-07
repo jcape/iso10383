@@ -1,5 +1,4 @@
 [package]
-name = "iso10383-parser"
 authors.workspace = true
 categories = ["finance", "localization", "parser-implementations"]
 description = "Parser for ISO 10383 XML Data"
@@ -7,19 +6,20 @@ documentation = "https://docs.rs/iso10383-parser"
 edition.workspace = true
 keywords = ["iso10383", "mic"]
 license.workspace = true
+name = "iso10383-parser"
 readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true
 version.workspace = true
 
 [dependencies]
-iso3166-static = { workspace = true, features = ["serde", "alloc"] }
-iso10383-types = { workspace = true, features = ["serde"] }
-serde = { workspace = true, features = ["derive"] }
+iso10383-types = { features = ["serde"], workspace = true }
+iso3166-static = { features = ["alloc", "serde"], workspace = true }
+serde = { features = ["derive"], workspace = true }
 
 [dev-dependencies]
-yare = "3"
 quick-xml.workspace = true
+yare = "3"
 
 [lints]
 workspace = true

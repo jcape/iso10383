@@ -98,8 +98,23 @@ repos:
         stages: [pre-commit]
         name: cargo nono (types)
         description: ensure the types crate is no_std compatible
-        # yamllint disable-line rule:line-length
         entry: cargo nono check --package iso10383-types
         language: system
         files: (\.rs|Cargo\.(toml|lock))$
+        pass_filenames: false
+      - id: taplo-lint
+        stages: [pre-commit]
+        name: taplo lint
+        description: lint with taplo
+        entry: taplo check
+        language: system
+        files: .toml$
+        pass_filenames: false
+      - id: taplo-format
+        stages: [pre-commit]
+        name: taplo format
+        description: format with taplo
+        entry: taplo format
+        language: system
+        files: .toml$
         pass_filenames: false

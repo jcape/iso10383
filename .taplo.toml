@@ -1,0 +1,18 @@
+exclude = [".cache/**", "target/**"]
+
+[formatting]
+reorder_arrays = true
+reorder_inline_tables = true
+reorder_keys = true
+
+[[rule]]
+include = ["**/Cargo.toml"]
+
+[rule.schema]
+path = "https://www.schemastore.org/cargo.json"
+
+[[rule]]
+include = ["prek.toml"]
+
+[rule.schema]
+path = "https://www.schemastore.org/prek.json"

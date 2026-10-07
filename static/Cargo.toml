@@ -1,6 +1,4 @@
 [package]
-name = "iso10383-static"
-version.workspace = true
 authors.workspace = true
 categories = ["finance", "localization", "no-std", "no-std::no-alloc"]
 description = "Static ISO 10383 Market Identifier Code Data"
@@ -8,37 +6,39 @@ documentation = "https://docs.rs/iso10383-static"
 edition.workspace = true
 keywords = ["iso10383", "mic"]
 license.workspace = true
+name = "iso10383-static"
 repository.workspace = true
 rust-version.workspace = true
+version.workspace = true
 
 [dependencies]
-iso3166-static.workspace = true
 iso10383-macros.workspace = true
 iso10383-types.workspace = true
 iso17442-types.workspace = true
+iso3166-static.workspace = true
 jiff.workspace = true
-serde = { workspace = true, optional = true }
-zerocopy = { workspace = true, optional = true }
+serde = { optional = true, workspace = true }
+zerocopy = { optional = true, workspace = true }
 
 [dev-dependencies]
 serde_json.workspace = true
 
 [features]
-default = ["serde"]
 alloc = [
-    "iso3166-static/alloc",
-    "iso10383-types/alloc",
-    "iso17442-types/alloc",
-    "jiff/alloc",
-    "serde?/alloc",
-    "zerocopy?/alloc",
+  "iso10383-types/alloc",
+  "iso17442-types/alloc",
+  "iso3166-static/alloc",
+  "jiff/alloc",
+  "serde?/alloc",
+  "zerocopy?/alloc",
 ]
+default = ["serde"]
 serde = [
-    "dep:serde",
-    "iso3166-static/serde",
-    "iso10383-types/serde",
-    "iso17442-types/serde",
-    "jiff/serde",
+  "dep:serde",
+  "iso10383-types/serde",
+  "iso17442-types/serde",
+  "iso3166-static/serde",
+  "jiff/serde",
 ]
 zerocopy = ["dep:zerocopy"]
 

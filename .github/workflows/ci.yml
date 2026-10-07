@@ -42,6 +42,11 @@ jobs:
           yamllint_comment: true
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: uncenter/setup-taplo@v2
+        with:
+          version: "0.10.0"
+      - run: taplo format
+      - run: taplo lint
 
   deny:
     runs-on: ubuntu-latest
