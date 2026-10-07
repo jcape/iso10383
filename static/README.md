@@ -6,7 +6,7 @@
 
 This crate contains `no-std` and `no-std::no-alloc` structures and data from the ISO 10383 MIC data distributed by the [ISO 20022 Website](https://www.iso20022.org/market-identifier-codes). More specifically, it contains a [`Code`](crate::Code) enum which enumerates all of the market identifier codes distributed, with accessors to read particular data, and a set of constants containing individual records.
 
-If you're _only_ looking for a simple string-oriented type that will perform basic well-formedness checks on a MIC code string, but not ensure the given code actuall exists, you should use [`iso10383-types`](https://crates.io/crates/iso10383-types).
+If you're _only_ looking for a simple string-oriented type that will perform basic well-formedness checks on a MIC code string, but not ensure the given code actually exists, you should use [`iso10383-types`](https://crates.io/crates/iso10383-types).
 
 ## Features
 
@@ -25,8 +25,14 @@ const MIC: &mic = match mic::from_str("IEXG") {
     Err(_) => panic!("Static MICs should parse"),
 };
 
+const CODE: Code = match Code::from_mic(MIC) {
+    Ok(code) => code,
+    Err(_) => panic!("IEXG is a current MIC"),
+};
+
 let code = Code::from_mic(MIC).expect("valid code");
 assert_eq!(Code::Iexg, code);
+assert_eq!(CODE, code);
 ```
 
 [//]: # (badges)
