@@ -12,11 +12,11 @@ repository.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-chrono.workspace = true
 iso3166-static.workspace = true
 iso10383-macros.workspace = true
 iso10383-types.workspace = true
 iso17442-types.workspace = true
+jiff.workspace = true
 serde = { workspace = true, optional = true }
 zerocopy = { workspace = true, optional = true }
 
@@ -26,19 +26,19 @@ serde_json.workspace = true
 [features]
 default = ["serde"]
 alloc = [
-    "chrono/alloc",
     "iso3166-static/alloc",
     "iso10383-types/alloc",
     "iso17442-types/alloc",
+    "jiff/alloc",
     "serde?/alloc",
     "zerocopy?/alloc",
 ]
 serde = [
     "dep:serde",
-    "chrono/serde",
     "iso3166-static/serde",
     "iso10383-types/serde",
     "iso17442-types/serde",
+    "jiff/serde",
 ]
 zerocopy = ["dep:zerocopy"]
 

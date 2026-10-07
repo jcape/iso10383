@@ -1,10 +1,10 @@
 //! A collection of parsed records.
 
-use chrono::NaiveDate;
 use core::fmt::{Debug, Formatter, Result as FmtResult};
 use heck::ToTitleCase as _;
 use iso10383_parser::MicRecord;
 use iso17442_types::lei;
+use jiff::civil::Date;
 use proc_macro2::{Span, TokenStream};
 use syn::{Error, Ident, LitByteStr, Result};
 
@@ -44,13 +44,13 @@ pub(crate) struct RecordSet {
     website: Vec<TokenStream>,
     /// The array of MIC status enum variant identifiers.
     status: Vec<Ident>,
-    /// The array of `NaiveDate` creation tokens.
+    /// The array of `Date` creation tokens.
     creation: Vec<TokenStream>,
-    /// The array of optional `NaiveDate` last-update tokens.
+    /// The array of optional `Date` last-update tokens.
     last_update: Vec<TokenStream>,
-    /// The array of optional `NaiveDate` last-verfied tokens.
+    /// The array of optional `Date` last-verfied tokens.
     last_validation: Vec<TokenStream>,
-    /// The array of optional `NaiveDate` expiration tokens.
+    /// The array of optional `Date` expiration tokens.
     expiry: Vec<TokenStream>,
     /// The array of optional string comment tokens.
     comments: Vec<TokenStream>,
@@ -217,22 +217,22 @@ impl RecordSet {
         &self.status
     }
 
-    /// The `NaiveDate` creation date as tokens.
+    /// The `Date` creation date as tokens.
     pub(crate) fn creation(&self) -> &[TokenStream] {
         &self.creation
     }
 
-    /// The `NaiveDate` update time as tokens.
+    /// The `Date` update time as tokens.
     pub(crate) fn last_update(&self) -> &[TokenStream] {
         &self.last_update
     }
 
-    /// The `Option<NaiveDate>` validation time as tokens.
+    /// The `Option<Date>` validation time as tokens.
     pub(crate) fn last_validation(&self) -> &[TokenStream] {
         &self.last_validation
     }
 
-    /// The `Option<NaiveDate>` expiration time as tokens.
+    /// The `Option<Date>` expiration time as tokens.
     pub(crate) fn expiry(&self) -> &[TokenStream] {
         &self.expiry
     }
@@ -327,7 +327,7 @@ fn optional_lei(legal_entity_id: Option<&str>, span: Span) -> Result<TokenStream
     }
 }
 
-/// Output the token stream for a required `NaiveDate` assignment.
+/// Output the token stream for a required `Date` assignment.
 fn required_date(date: &str, span: Span) -> Result<TokenStream> {
     let dateval = date.parse::<u32>().map_err(|error| {
         let message = format!("Unable to parse date: {error}");
@@ -336,25 +336,27 @@ fn required_date(date: &str, span: Span) -> Result<TokenStream> {
 
     // 20260102 /    10_000 = 2026
     // 20260102 %    10_000 = 102
-    // 20260102 % 1_000_000 = 2
-    let year = (dateval / 10_000).cast_signed();
-    let month = (dateval % 10_000) / 100;
-    let day = dateval % 100;
+    // 20260102 %       100 = 2
+    let out_of_range = |error| {
+        let message = format!("`{date}` contains a value which could not be parsed: {error}");
+        Error::new(span, message)
+    };
+    let year = i16::try_from(dateval / 10_000).map_err(out_of_range)?;
+    let month = i8::try_from((dateval % 10_000) / 100).map_err(out_of_range)?;
+    let day = i8::try_from(dateval % 100).map_err(out_of_range)?;
 
-    let _date = NaiveDate::from_ymd_opt(year, month, day).ok_or_else(|| {
-        let message = format!("Date `{date}` ({year}, {month}, {day} out of range, likely invalid");
+    let _date = Date::new(year, month, day).map_err(|error| {
+        let message =
+            format!("Date `{date}` ({year}, {month}, {day}) out of range, likely invalid: {error}");
         Error::new(span, message)
     })?;
 
     Ok(quote::quote! {
-        match ::chrono::NaiveDate::from_ymd_opt(#year, #month, #day) {
-            Some(value) => value,
-            None => panic!("Invalid date in constant data"),
-        }
+        ::jiff::civil::Date::constant(#year, #month, #day)
     })
 }
 
-/// Output the token stream required for an `Option<NaiveDate>`.
+/// Output the token stream required for an `Option<Date>`.
 fn optional_date(date: Option<&str>, span: Span) -> Result<TokenStream> {
     if let Some(date) = date
         && !date.trim().is_empty()

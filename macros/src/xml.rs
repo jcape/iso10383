@@ -353,7 +353,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The creation date of this code.
             #[inline(never)]
-            pub const fn creation_date(&self) -> ::chrono::NaiveDate {
+            pub const fn creation_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
                         Self::#ident => #creation_date,
@@ -363,7 +363,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The last time this code was updated.
             #[inline(never)]
-            pub const fn last_update_date(&self) -> ::chrono::NaiveDate {
+            pub const fn last_update_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
                         Self::#ident => #last_update_date,
@@ -373,7 +373,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The date this record was last validated.
             #[inline(never)]
-            pub const fn last_validation_date(&self) -> Option<::chrono::NaiveDate> {
+            pub const fn last_validation_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
                         Self::#ident => #last_validation_date,
@@ -383,7 +383,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
             /// The date this code expires (or expired), if any.
             #[inline(never)]
-            pub const fn expiry_date(&self) -> Option<::chrono::NaiveDate> {
+            pub const fn expiry_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
                         Self::#ident => #expiry_date,
@@ -494,13 +494,13 @@ fn generate_data(records: &RecordSet) -> TokenStream {
             /// The status of this code.
             pub status: ::iso10383_types::Status,
             /// The date this record was created at.
-            pub creation_date: ::chrono::NaiveDate,
+            pub creation_date: ::jiff::civil::Date,
             /// The date this record was updated at.
-            pub last_update_date: ::chrono::NaiveDate,
+            pub last_update_date: ::jiff::civil::Date,
             /// The date this record was last validated.
-            pub last_validation_date: Option<::chrono::NaiveDate>,
+            pub last_validation_date: Option<::jiff::civil::Date>,
             /// The date this record was marked expired.
-            pub expiry_date: Option<::chrono::NaiveDate>,
+            pub expiry_date: Option<::jiff::civil::Date>,
             /// Any comments about this record.
             pub comments: Option<&'static str>,
         }
