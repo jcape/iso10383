@@ -9,6 +9,7 @@ cargo binstall -q -y --force prek
 cargo binstall -q -y --force action-validator
 cargo binstall -q -y --force cargo-deny
 cargo binstall -q -y --force cargo-nextest
+cargo binstall -q -y --force cargo-nono
 
 pushd /workspaces/iso10383 >/dev/null
 prek install >/dev/null
