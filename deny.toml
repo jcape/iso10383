@@ -14,6 +14,7 @@ version = 2
 allow = []
 allow-wildcard-paths = true
 deny = [
+  { name = "enumflags2", reason = "https://github.com/meithecatte/enumflags2/blob/a098a77fc1bda72ea66ad511bee9400dd115f763/AGENTS.md" },
   { name = "ring", reason = "https://github.com/briansmith/ring/issues/774" },
 ]
 highlight = "all"
