@@ -21,6 +21,7 @@ const TESTS_DIR: &str = "tests";
     feb2026 = {"2026-02-09.xml", 2817},
     aug2026 = {"2026-08-10.xml", 2875},
     sep2026 = {"2026-09-14.xml", 2883},
+    oct2026 = {"2026-10-12.xml", 2889},
 )]
 fn all_historical(file: &str, count: usize) {
     let filepath = PathBuf::from(BASE_PATH).join(TESTS_DIR).join(file);
