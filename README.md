@@ -29,7 +29,7 @@ A collection of crates for use with ISO 18383 Market Identifier Codes.
 [parser-crate-link]: https://crates.io/crates/iso10383-parser/0.6.0/
 [macros-crate-image]: https://img.shields.io/crates/v/iso10383-macros.svg?style=flat-square
 [macros-crate-link]: https://crates.io/crates/iso10383-macros/0.6.0/
-[license-image]: https://img.shields.io/github/license/jcape/iso10383-static3?style=flat-square
+[license-image]: https://img.shields.io/github/license/jcape/iso10383-static?style=flat-square
 [license-link]: LICENSE
 [deps-image]: https://deps.rs/repo/github/jcape/iso10383/status.svg?style=flat-square
 [deps-link]: https://deps.rs/repo/github/jcape/iso10383
