@@ -36,7 +36,10 @@ pub(crate) struct RecordSet {
     category: Vec<Ident>,
     /// The array of optional string acronyms.
     acronym: Vec<TokenStream>,
-    /// The array of `iso3166_static::Alpha2` variant identifiers.
+    /// The array of
+    #[cfg_attr(doc, doc = "[`Alpha2`](iso3166_static::Alpha2)")]
+    #[cfg_attr(not(doc), doc = "`iso3166_static::Alpha2`")]
+    /// variant identifiers.
     alpha2: Vec<Ident>,
     /// The array of city strings.
     city: Vec<String>,
@@ -182,7 +185,9 @@ impl RecordSet {
     }
 
     /// The LEI of the entry's legal entity, as tokens for an optional static
-    /// [`&lei`](::iso17442_types::lei) reference.
+    #[cfg_attr(doc, doc = "[`&lei`](::iso17442_types::lei)")]
+    #[cfg_attr(not(doc), doc = "`&::iso17442_types::lei`")]
+    /// reference.
     pub(crate) fn legal_id(&self) -> &[TokenStream] {
         &self.legal_id
     }
@@ -197,7 +202,10 @@ impl RecordSet {
         &self.acronym
     }
 
-    /// The [`Alpha2`](iso3166_static::Alpha2) enum variant, as an identifier.
+    /// The
+    #[cfg_attr(doc, doc = "[`Alpha2`](iso3166_static::Alpha2)")]
+    #[cfg_attr(not(doc), doc = "`iso3166_static::Alpha2`")]
+    /// enum variant, as an identifier.
     pub(crate) fn alpha2(&self) -> &[Ident] {
         &self.alpha2
     }
