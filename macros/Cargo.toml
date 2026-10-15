@@ -15,12 +15,12 @@ version.workspace = true
 proc-macro = true
 
 [features]
-docs = ["dep:iso10383-types", "dep:iso3166-static"]
+docs = ["dep:iso3166-static"]
 
 [dependencies]
 heck = "0.5"
 iso10383-parser.workspace = true
-iso10383-types = { optional = true, workspace = true }
+iso10383-types.workspace = true
 iso17442-types.workspace = true
 iso3166-static = { default-features = false, optional = true, workspace = true }
 itertools = "0.15"

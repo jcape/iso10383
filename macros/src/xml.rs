@@ -184,6 +184,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
     let last_validation_date = records.last_validation();
     let expiry_date = records.expiry();
     let comments = records.comments();
+    let deprecated = records.deprecated();
 
     let zc_tokens = if let Some(zc_feature) = zerocopy {
         quote::quote! {
@@ -220,6 +221,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
         pub enum Code {
             #(
                 #[doc = #doc]
+                #deprecated
                 #ident = u32::from_be_bytes(*#code_bytes),
             )*
         }
@@ -231,6 +233,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             ///
             /// - [`Error::UnknownMic`] when the MIC value is unknown
             #[inline(never)]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub const fn from_mic(value: &::iso10383_types::mic) -> Result<Self, Error> {
                 match value.as_bytes() {
                     #(
@@ -244,6 +247,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// Retrieve the corresponding MIC.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn as_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
@@ -260,6 +264,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// Retrieve the operating MIC.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn operating_mic(&self) -> &'static ::iso10383_types::mic {
                 match self {
                     #(
@@ -276,6 +281,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The type of code this represents.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn kind(&self) -> ::iso10383_types::Kind {
                 match self {
                     #(
@@ -287,6 +293,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The name of the the organization which operates this code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn name(&self) -> &'static ::core::primitive::str {
                 match self {
                     #(
@@ -298,6 +305,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The name of the legal entity which operates this code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn legal_entity_name(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
@@ -309,6 +317,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The ISO 17442 ID of the entity which operates this code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn legal_entity_id(&self) -> Option<&'static ::iso17442_types::lei> {
                 match self {
                     #(
@@ -320,6 +329,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The market category of the code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn category(&self) -> ::iso10383_types::Category {
                 match self {
                     #(
@@ -331,6 +341,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The acronym of the entity operating this code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn acronym(&self) -> Option<&'static ::core::primitive::str> {
                 match self {
                     #(
@@ -342,6 +353,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The country this code is operated from.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn country(&self) -> ::iso3166_static::Alpha2 {
                 match self {
                     #(
@@ -353,6 +365,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The status of the code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn status(&self) -> ::iso10383_types::Status {
                 match self {
                     #(
@@ -364,6 +377,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The creation date of this code.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn creation_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
@@ -375,6 +389,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The last time this code was updated.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn last_update_date(&self) -> ::jiff::civil::Date {
                 match self {
                     #(
@@ -386,6 +401,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The date this record was last validated.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn last_validation_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
@@ -397,6 +413,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The date this code expires (or expired), if any.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn expiry_date(&self) -> Option<::jiff::civil::Date> {
                 match self {
                     #(
@@ -408,6 +425,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
             /// The comments attached to this code, if any.
             #[inline(never)]
             #[must_use]
+            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
             pub fn comments(&self) -> Option<&::core::primitive::str> {
                 match self {
                     #(
@@ -455,9 +473,11 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
     let expiry_date = records.expiry();
     let comments = records.comments();
     let count = const_ident.len();
+    let deprecated = records.deprecated();
 
     quote::quote! {
         /// A constant array of references to all MIC records.
+        #[expect(deprecated, reason = "Deprecated records will be included")]
         pub const ALL_MICS: [&Record; #count] = [
             #(
                 &#const_ident,
@@ -466,8 +486,15 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
 
         #(
             #[doc = #name]
+            #deprecated
+            #[expect(
+                clippy::allow_attributes,
+                reason = "Some records may use deprecated Code enum values, most will not"
+            )]
             pub const #const_ident: Record = Record {
+                #[allow(deprecated, reason = "Deprecated records use deprecated Code enum values")]
                 code: Code::#code,
+                #[allow(deprecated, reason = "Deprecated records use deprecated Code enum values")]
                 operating_code: Code::#operating_code,
                 kind: ::iso10383_types::Kind::#kind,
                 name: #name,

@@ -3,6 +3,7 @@
 use core::fmt::{Debug, Formatter, Result as FmtResult};
 use heck::ToTitleCase as _;
 use iso10383_parser::MicRecord;
+use iso10383_types::Status;
 use iso17442_types::lei;
 use jiff::civil::Date;
 use proc_macro2::{Span, TokenStream};
@@ -57,6 +58,8 @@ pub(crate) struct RecordSet {
     expiry: Vec<TokenStream>,
     /// The array of optional string comment tokens.
     comments: Vec<TokenStream>,
+    /// An array of either blank or `#[deprecated]` tokens.
+    deprecated: Vec<TokenStream>,
 }
 
 impl RecordSet {
@@ -85,6 +88,7 @@ impl RecordSet {
             last_validation: Vec::with_capacity(capacity),
             expiry: Vec::with_capacity(capacity),
             comments: Vec::with_capacity(capacity),
+            deprecated: Vec::with_capacity(capacity),
         }
     }
 
@@ -135,6 +139,14 @@ impl RecordSet {
         self.last_validation.push(last_validation);
         self.expiry.push(expiry);
         self.comments.push(comments);
+
+        let deprecated = match record.status {
+            Status::Active | Status::Updated => quote::quote! {},
+            Status::Expired => quote::quote! {
+               #[deprecated]
+            },
+        };
+        self.deprecated.push(deprecated);
 
         Ok(())
     }
@@ -203,8 +215,8 @@ impl RecordSet {
     }
 
     /// The
-    #[cfg_attr(doc, doc = "[`Alpha2`](iso3166_static::Alpha2)")]
-    #[cfg_attr(not(doc), doc = "`iso3166_static::Alpha2`")]
+    #[cfg_attr(doc, doc = "[`Alpha2`](::iso3166_static::Alpha2)")]
+    #[cfg_attr(not(doc), doc = "`&::iso3166_static::Alpha2`")]
     /// enum variant, as an identifier.
     pub(crate) fn alpha2(&self) -> &[Ident] {
         &self.alpha2
@@ -249,6 +261,11 @@ impl RecordSet {
     pub(crate) fn comments(&self) -> &[TokenStream] {
         &self.comments
     }
+
+    /// The `#[deprecated]` (or blank) tokens.
+    pub(crate) fn deprecated(&self) -> &[TokenStream] {
+        &self.deprecated
+    }
 }
 
 impl Debug for RecordSet {
@@ -276,6 +293,7 @@ impl Debug for RecordSet {
             .field("last_validation", &self.last_validation)
             .field("expiry", &self.expiry)
             .field("comments", &self.comments)
+            .field("deprecated", &self.deprecated)
             .finish()
     }
 }
