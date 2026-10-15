@@ -22,6 +22,8 @@ struct Config {
     span: Span,
     /// The zerocopy feature name.
     zerocopy: Option<String>,
+    /// The details (static data) feature name.
+    details: Option<String>,
 }
 
 impl Config {
@@ -59,22 +61,36 @@ impl Config {
             return Err(Error::new_spanned(lit, "Multiple `zerocopy` parameters."));
         }
 
-        match lit {
-            Lit::Bool(lit_bool) => {
-                self.zerocopy = lit_bool.value().then_some("zerocopy".to_owned());
-            }
-            Lit::Str(lit_str) => {
-                self.zerocopy = Some(lit_str.value());
-            }
-            val => {
-                return Err(Error::new_spanned(
-                    val,
-                    "`zerocopy` must be bool or the literal feature name to use",
-                ));
-            }
-        }
+        self.zerocopy = Self::parse_feature(lit, "zerocopy")?;
 
         Ok(())
+    }
+
+    /// Parse the literal provided as a string or boolean.
+    fn parse_details(&mut self, lit: &Lit) -> Result<()> {
+        if self.details.is_some() {
+            return Err(Error::new_spanned(lit, "Multiple `details` parameters."));
+        }
+
+        self.details = Self::parse_feature(lit, "details")?;
+
+        Ok(())
+    }
+
+    /// Parse a feature literal.
+    ///
+    /// If a boolean literal is passed, the given name will be used as the feature. If a string
+    /// literal is given, that string will be used instead.
+    fn parse_feature(lit: &Lit, name: &str) -> Result<Option<String>> {
+        match lit {
+            Lit::Bool(lit_bool) => Ok(lit_bool.value().then(|| name.to_owned())),
+            Lit::Str(lit_str) => Ok(Some(lit_str.value())),
+            val => {
+                let message = format!("`{name}` must be bool or the literal feature name to use");
+
+                Err(Error::new_spanned(val, message))
+            }
+        }
     }
 
     /// Parse a namevalue token pair.
@@ -93,9 +109,10 @@ impl Config {
         match ident.as_str() {
             "xml" => self.parse_xml(lit),
             "zerocopy" => self.parse_zerocopy(lit),
+            "details" => self.parse_details(lit),
             other => {
                 let message = format!(
-                    "{other} is not a valid paramter. The only valid parameters are `xml`, which should refer to a file relative to the calling crate's `src` directory, and `zerocopy`, which should be set to `true` or the zero copy feature name."
+                    "{other} is not a valid paramter. The only valid parameters are `xml`, which should refer to a file relative to the calling crate's `src` directory, and `zerocopy`/`details`, which should be set to `true` or the relevant feature name."
                 );
                 Err(Error::new_spanned(ident, message))
             }
@@ -109,6 +126,7 @@ impl Config {
             xml: PathBuf::default(),
             span: Span::call_site(),
             zerocopy: None,
+            details: None,
         };
 
         for arg in args {
@@ -118,8 +136,8 @@ impl Config {
                         tokens,
                         concat!(
                             "The only valid parameters are `xml`, which should refer to a file ",
-                            "relative to the calling crate's `src` directory, and `zerocopy`, ",
-                            "which should be set to `true` or the zero copy feature name."
+                            "relative to the calling crate's `src` directory, `zerocopy`, and ",
+                            "`details`, which should be set to `true` or the relevant feature name."
                         ),
                     ));
                 }
@@ -128,8 +146,8 @@ impl Config {
                         tokens,
                         concat!(
                             "The only valid parameter is `xml`, which should refer to a file ",
-                            "relative to the calling crate's `src` directory, and `zerocopy`, ",
-                            "which should be set to `true` or the zero copy feature name."
+                            "relative to the calling crate's `src` directory, `zerocopy`, and ",
+                            "`details`, which should be set to `true` or the relevant feature name."
                         ),
                     ));
                 }
@@ -165,25 +183,16 @@ fn generate_error() -> TokenStream {
 }
 
 /// A function to generate the code enum.
-#[expect(clippy::too_many_lines, clippy::single_call_fn)]
-fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
+#[expect(clippy::single_call_fn)]
+fn generate_code(
+    records: &RecordSet,
+    zerocopy: Option<String>,
+    details_tokens: &TokenStream,
+) -> TokenStream {
     let doc = records.doc();
     let ident = records.code_ident();
     let code_bytes = records.code_bytes();
-    let operating_bytes = records.oper_bytes();
-    let kind = records.kind();
-    let name = records.name();
-    let legal_name = records.legal_name();
-    let legal_id = records.legal_id();
-    let category = records.category();
-    let acronym = records.acronym();
-    let alpha2 = records.alpha2();
-    let status = records.status();
-    let creation_date = records.creation();
-    let last_update_date = records.last_update();
-    let last_validation_date = records.last_validation();
-    let expiry_date = records.expiry();
-    let comments = records.comments();
+    let const_ident = records.const_ident();
     let deprecated = records.deprecated();
 
     let zc_tokens = if let Some(zc_feature) = zerocopy {
@@ -261,175 +270,15 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
                 }
             }
 
-            /// Retrieve the operating MIC.
+            /// Retrieve a struct containing constant details for this enum value.
             #[inline(never)]
             #[must_use]
             #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn operating_mic(&self) -> &'static ::iso10383_types::mic {
+            #details_tokens
+            pub fn details(&self) -> &'static Record {
                 match self {
                     #(
-                        Self::#ident => {
-                            match ::iso10383_types::mic::from_bytes(#operating_bytes) {
-                                Ok(value) => value,
-                                Err(err) => panic!("Invalid MIC in generated code"),
-                            }
-                        }
-                    )*
-                }
-            }
-
-            /// The type of code this represents.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn kind(&self) -> ::iso10383_types::Kind {
-                match self {
-                    #(
-                        Self::#ident => ::iso10383_types::Kind::#kind,
-                    )*
-                }
-            }
-
-            /// The name of the the organization which operates this code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn name(&self) -> &'static ::core::primitive::str {
-                match self {
-                    #(
-                        Self::#ident => #name,
-                    )*
-                }
-            }
-
-            /// The name of the legal entity which operates this code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn legal_entity_name(&self) -> Option<&'static ::core::primitive::str> {
-                match self {
-                    #(
-                        Self::#ident => #legal_name,
-                    )*
-                }
-            }
-
-            /// The ISO 17442 ID of the entity which operates this code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn legal_entity_id(&self) -> Option<&'static ::iso17442_types::lei> {
-                match self {
-                    #(
-                        Self::#ident => #legal_id,
-                    )*
-                }
-            }
-
-            /// The market category of the code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn category(&self) -> ::iso10383_types::Category {
-                match self {
-                    #(
-                        Self::#ident => ::iso10383_types::Category::#category,
-                    )*
-                }
-            }
-
-            /// The acronym of the entity operating this code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn acronym(&self) -> Option<&'static ::core::primitive::str> {
-                match self {
-                    #(
-                        Self::#ident => #acronym,
-                    )*
-                }
-            }
-
-            /// The country this code is operated from.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn country(&self) -> ::iso3166_static::Alpha2 {
-                match self {
-                    #(
-                        Self::#ident => ::iso3166_static::Alpha2::#alpha2,
-                    )*
-                }
-            }
-
-            /// The status of the code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn status(&self) -> ::iso10383_types::Status {
-                match self {
-                    #(
-                        Self::#ident => ::iso10383_types::Status::#status,
-                    )*
-                }
-            }
-
-            /// The creation date of this code.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn creation_date(&self) -> ::jiff::civil::Date {
-                match self {
-                    #(
-                        Self::#ident => #creation_date,
-                    )*
-                }
-            }
-
-            /// The last time this code was updated.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn last_update_date(&self) -> ::jiff::civil::Date {
-                match self {
-                    #(
-                        Self::#ident => #last_update_date,
-                    )*
-                }
-            }
-
-            /// The date this record was last validated.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn last_validation_date(&self) -> Option<::jiff::civil::Date> {
-                match self {
-                    #(
-                        Self::#ident => #last_validation_date,
-                    )*
-                }
-            }
-
-            /// The date this code expires (or expired), if any.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn expiry_date(&self) -> Option<::jiff::civil::Date> {
-                match self {
-                    #(
-                        Self::#ident => #expiry_date,
-                    )*
-                }
-            }
-
-            /// The comments attached to this code, if any.
-            #[inline(never)]
-            #[must_use]
-            #[expect(deprecated, reason = "Deprecated Code enum values will be matched")]
-            pub fn comments(&self) -> Option<&::core::primitive::str> {
-                match self {
-                    #(
-                        Self::#ident => #comments,
+                        Self::#ident => &crate::#const_ident,
                     )*
                 }
             }
@@ -453,7 +302,7 @@ fn generate_code(records: &RecordSet, zerocopy: Option<String>) -> TokenStream {
 
 /// Generate the constants.
 #[expect(clippy::single_call_fn, reason = "Clean code")]
-fn generate_const_data(records: &RecordSet) -> TokenStream {
+fn generate_const_data(records: &RecordSet, details_tokens: &TokenStream) -> TokenStream {
     let const_ident = records.const_ident();
     let code = records.code_ident();
     let operating_code = records.oper_ident();
@@ -478,6 +327,7 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
     quote::quote! {
         /// A constant array of references to all MIC records.
         #[expect(deprecated, reason = "Deprecated records will be included")]
+        #details_tokens
         pub const ALL_MICS: [&Record; #count] = [
             #(
                 &#const_ident,
@@ -486,6 +336,7 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
 
         #(
             #[doc = #name]
+            #details_tokens
             #deprecated
             #[expect(
                 clippy::allow_attributes,
@@ -519,7 +370,7 @@ fn generate_const_data(records: &RecordSet) -> TokenStream {
 
 /// Generate the static record data.
 #[expect(clippy::single_call_fn)]
-fn generate_data(records: &RecordSet) -> TokenStream {
+fn generate_data(records: &RecordSet, details_tokens: &TokenStream) -> TokenStream {
     let mut retval = quote::quote! {
         /// All data about a MIC.
         #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -562,7 +413,7 @@ fn generate_data(records: &RecordSet) -> TokenStream {
         }
     };
 
-    retval.extend(generate_const_data(records));
+    retval.extend(generate_const_data(records, details_tokens));
 
     retval
 }
@@ -574,6 +425,7 @@ pub(crate) fn generate(input: TokenStream) -> Result<TokenStream> {
         xml,
         span,
         zerocopy,
+        details,
     } = Punctuated::<Meta, Token![,]>::parse_terminated
         .parse2(input)
         .and_then(|args| Config::build(&args))?;
@@ -598,9 +450,17 @@ pub(crate) fn generate(input: TokenStream) -> Result<TokenStream> {
         records.push_record(&record, span)?;
     }
 
+    let details_tokens = if let Some(feature_name) = details {
+        quote::quote! {
+            #[cfg(feature = #feature_name)]
+        }
+    } else {
+        quote::quote! {}
+    };
+
     let mut retval = generate_error();
-    retval.extend(generate_code(&records, zerocopy));
-    retval.extend(generate_data(&records));
+    retval.extend(generate_code(&records, zerocopy, &details_tokens));
+    retval.extend(generate_data(&records, &details_tokens));
 
     Ok(retval)
 }

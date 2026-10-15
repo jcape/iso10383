@@ -32,7 +32,8 @@ alloc = [
   "serde?/alloc",
   "zerocopy?/alloc",
 ]
-default = ["serde"]
+default = ["details", "serde"]
+details = []
 serde = [
   "dep:serde",
   "iso10383-types/serde",

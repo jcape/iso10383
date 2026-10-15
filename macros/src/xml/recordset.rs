@@ -22,8 +22,6 @@ pub(crate) struct RecordSet {
     /// The array of enum variant identifiers.
     code_ident: Vec<Ident>,
     /// An array of operating MIC byte literals.
-    oper_bytes: Vec<LitByteStr>,
-    /// The array of operating MIC enum variant identifiers.
     oper_ident: Vec<Ident>,
     /// The array of MIC type enum variant identifiers.
     kind: Vec<Ident>,
@@ -71,7 +69,6 @@ impl RecordSet {
             const_ident: Vec::with_capacity(capacity),
             code_bytes: Vec::with_capacity(capacity),
             code_ident: Vec::with_capacity(capacity),
-            oper_bytes: Vec::with_capacity(capacity),
             oper_ident: Vec::with_capacity(capacity),
             kind: Vec::with_capacity(capacity),
             name: Vec::with_capacity(capacity),
@@ -99,7 +96,6 @@ impl RecordSet {
         let code_bytes = LitByteStr::new(record.mic.as_byte_slice(), span);
         let code_ident =
             quote::format_ident!("{}", cleanup_mic(&record.mic.as_str().to_title_case()));
-        let oper_bytes = LitByteStr::new(record.operating_mic.as_byte_slice(), span);
         let oper_ident = quote::format_ident!(
             "{}",
             cleanup_mic(&record.operating_mic.as_str().to_title_case())
@@ -122,7 +118,6 @@ impl RecordSet {
         self.const_ident.push(const_ident);
         self.code_bytes.push(code_bytes);
         self.code_ident.push(code_ident);
-        self.oper_bytes.push(oper_bytes);
         self.oper_ident.push(oper_ident);
         self.kind.push(kind);
         self.name.push(record.name.clone());
@@ -169,11 +164,6 @@ impl RecordSet {
     /// The MIC as a title-case identifier.
     pub(crate) fn code_ident(&self) -> &[Ident] {
         &self.code_ident
-    }
-
-    /// The Operating MIC as bytes.
-    pub(crate) fn oper_bytes(&self) -> &[LitByteStr] {
-        &self.oper_bytes
     }
 
     /// The operating MIC as a title-case identifier.
