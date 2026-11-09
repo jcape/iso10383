@@ -63,25 +63,25 @@ hooks = [
     "--all-features",
     "--document-private-items",
     "--no-deps",
-  ], id = "cargo-doc" },
+  ], files = '(\.rs|\.md|Cargo\.(toml|lock))$', id = "cargo-doc" },
   { args = [
     "--all-features",
-  ], id = "cargo-check" },
+  ], files = '(\.rs|Cargo\.(toml|lock))$', id = "cargo-check" },
   { args = [
     "--all-features",
-  ], id = "cargo-clippy" },
+  ], files = '(\.rs|Cargo\.(toml|lock))$', id = "cargo-clippy" },
   { args = [
     "--all-features",
-  ], id = "cargo-test" },
+  ], files = '(\.rs|Cargo\.(toml|lock))$', id = "cargo-test" },
   { args = [
     "--all-features",
-  ], id = "cargo-test-doc" },
+  ], files = '(\.rs|\.md|Cargo\.(toml|lock))$', id = "cargo-test-doc" },
   { args = [
     "--allow-dirty",
     "--allow-staged",
-  ], id = "cargo-fix" },
-  { id = "cargo-fmt" },
-  { id = "cargo-update" },
+  ], files = '(\.rs|Cargo\.(toml|lock))$', id = "cargo-fix" },
+  { files = '(\.rs|Cargo\.(toml|lock))$', id = "cargo-fmt" },
+  { files = '.*', id = "cargo-update" },
 ]
 repo = "https://github.com/AndrejOrsula/pre-commit-cargo"
 rev = "0.5.0"
