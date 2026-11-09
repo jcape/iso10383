@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1](https://github.com/jcape/iso10383/compare/iso10383-static-v0.7.0...iso10383-static-v0.7.1) - 2026-11-09
+
+### Other
+
+- Update static crate readme for 0.7 changes.
+- update to the November 2026 release
+
 ## [0.7.0](https://github.com/jcape/iso10383/compare/iso10383-static-v0.6.0...iso10383-static-v0.7.0) - 2026-10-15
 
 ### Added
