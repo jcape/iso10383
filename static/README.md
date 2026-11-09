@@ -61,7 +61,7 @@ assert_eq!("INVESTORS EXCHANGE", *iexg_name);
 [//]: # (badges)
 
 [crate-image]: https://img.shields.io/crates/v/iso10383-static.svg?style=for-the-badge
-[crate-link]: https://crates.io/crates/iso10383-static/0.7.0
-[docs-image]: https://img.shields.io/docsrs/iso10383-static/0.7.0?style=for-the-badge
-[docs-link]: https://docs.rs/iso10383-static/0.7.0/iso10383_static/
-[msrv-image]: https://img.shields.io/crates/msrv/iso10383-static/0.7.0?style=for-the-badge
+[crate-link]: https://crates.io/crates/iso10383-static/0.7.1
+[docs-image]: https://img.shields.io/docsrs/iso10383-static/0.7.1?style=for-the-badge
+[docs-link]: https://docs.rs/iso10383-static/0.7.1/iso10383_static/
+[msrv-image]: https://img.shields.io/crates/msrv/iso10383-static/0.7.1?style=for-the-badge
