@@ -63,7 +63,7 @@ jobs:
           PR: ${{ steps.release-plz.outputs.pr }}
         # yamllint disable rule:line-length
         run: |
-          set -e
+          set -ex
 
           pr_number=${{ fromJSON(steps.release-plz.outputs.pr).number }}
           if [[ -n "$pr_number" ]]; then
