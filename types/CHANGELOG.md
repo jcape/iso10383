@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2](https://github.com/jcape/iso10383/compare/iso10383-types-v0.7.1...iso10383-types-v0.7.2) - 2026-11-11
+
+### Other
+
+- release v0.7.1
+
 ## [0.7.1](https://github.com/jcape/iso10383/compare/iso10383-types-v0.7.0...iso10383-types-v0.7.1) - 2026-11-09
 
 ### Other
