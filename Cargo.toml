@@ -9,7 +9,7 @@ iso10383-parser = { path = "./parser", version = "=0.7.1" }
 iso10383-types = { path = "./types", version = "=0.7.1" }
 iso17442-types = { default-features = false, version = "0.4.0" }
 iso3166-static = { default-features = false, version = "0.4.2" }
-jiff = { default-features = false, version = "0.2.38" }
+jiff = { default-features = false, version = "1.0.0" }
 quick-xml = { features = ["serialize"], version = "0.42.0" }
 serde = { default-features = false, version = "1.0.229" }
 serde_json = "1"
